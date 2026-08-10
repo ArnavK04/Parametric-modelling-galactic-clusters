@@ -1,0 +1,170 @@
+# MASTER CATALOG of the 135 multiple images actually used to CONSTRAIN the
+# strong-lensing (SL) model of Abell 2744 in Furtak et al. 2023.
+#
+# Furtak et al. 2023 
+#     90 images (Bergamini et al. 2023, 30 secure spec-z core systems)
+#   + 45 images (Furtak et al. 2023, new extended-structure systems, non-candidate)
+#   = 135 images
+#
+# Sources:
+#   (1) Bergamini et al. 2023, (https://arxiv.org/abs/2207.09416)
+#   (2) Furtak et al. 2023, (https://doi.org/10.1093/mnras/stad1627)
+#
+# EXCLUDED from this file (relative to the previous MASTER_merged.txt):
+#   - All candidate images (originally "c"-prefixed, e.g. c65.13, c73.1, cJD1C)
+#   - System 53 (3 images: 53.1, 53.2, 53.3) -- identified/confirmed with
+#     UNCOVER data but explicitly NOT used as an SL-model constraint, per
+#     the paper's own text: "system 53 is not included in the lens modeling
+#     at this stage."
+#
+# Columns:
+# ID              : Image ID (system.image[_letter]). Same "System" = same background source.
+# System          : Background source system number/label (derived from ID)
+# Source          : Which paper this row's image comes from (Bergamini2023 / Furtak2023)
+# RA_deg          : Right Ascension, J2000, decimal degrees
+# Dec_deg         : Declination, J2000, decimal degrees
+# zspec           : Spectroscopic redshift (Bergamini2023 rows; also JD1 fixed z_spec=9.76)
+# zphot           : Photometric redshift, UNCOVER catalog (Furtak2023 rows only)
+# zphot_95range   : Photometric redshift 97.5%-range bounds [low,high] (Furtak2023 rows only)
+# zmodel          : Median SL-model redshift (Furtak2023 rows only)
+# zmodel_95range  : SL-model redshift 95%-range bounds [low,high] (Furtak2023 rows only)
+# QF              : Quality flag (Bergamini2023 rows only)
+# QP              : Positional quality flag (Bergamini2023 rows only)
+# Note_Remarks    : Bergamini2023 "new_family"/"new_position" flag, OR Furtak2023 remarks text
+#
+ID	System	Source		RA_deg		 Dec_deg	zspec	zphot	zphot_95range	zmodel	zmodel_95range	QF	QP	Note_Remarks
+1.1a	1	Bergamini2023	3.597561	-30.403925	1.688							3	1	
+1.1b	1	Bergamini2023	3.595963	-30.406808	1.688							2	1	
+1.1c	1	Bergamini2023	3.586226	-30.409986	1.688							3	1	
+1.2a	1	Bergamini2023	3.597072	-30.404723	1.688							3	1	
+1.2b	1	Bergamini2023	3.596395	-30.406143	1.688							3	1	
+1.2c	1	Bergamini2023	3.585748	-30.410100	1.688							3	1	
+1.3a	1	Bergamini2023	3.597756	-30.403530	1.688							3	2	new_family
+1.3b	1	Bergamini2023	3.595528	-30.407199	1.688							3	2	new_family
+1.3c	1	Bergamini2023	3.586459	-30.409871	1.688							3	2	new_family
+1.4a	1	Bergamini2023	3.598082	-30.403980	1.688							1	1	new_family
+1.4b	1	Bergamini2023	3.595722	-30.407546	1.688							1	1	new_family
+1.4c	1	Bergamini2023	3.587383	-30.410152	1.688							1	1	new_family
+2.1a	2	Bergamini2023	3.583265	-30.403339	1.887							3	1	
+2.1b	2	Bergamini2023	3.597289	-30.396712	1.887							3	1	
+2.1c	2	Bergamini2023	3.585369	-30.399878	1.887							3	1	
+2.1d	2	Bergamini2023	3.586412	-30.402127	1.887							3	1	
+2.2a	2	Bergamini2023	3.583029	-30.403189	1.887							3	1	new_family
+2.2b	2	Bergamini2023	3.597138	-30.396639	1.887							3	1	new_family
+2.2c	2	Bergamini2023	3.585134	-30.399668	1.887							3	1	new_family
+2.2d	2	Bergamini2023	3.586438	-30.401870	1.887							3	1	new_family
+2.3a	2	Bergamini2023	3.582994	-30.403050	1.887							3	1	new_family
+2.3b	2	Bergamini2023	3.597095	-30.396580	1.887							3	1	new_family
+2.3c	2	Bergamini2023	3.585017	-30.399625	1.887							3	1	new_family
+2.3d	2	Bergamini2023	3.586394	-30.401765	1.887							3	1	new_family
+2.4a	2	Bergamini2023	3.582918	-30.402930	1.887							3	1	new_family
+2.4b	2	Bergamini2023	3.597052	-30.396527	1.887							3	1	new_family
+2.4c	2	Bergamini2023	3.584915	-30.399580	1.887							3	1	new_family
+2.4d	2	Bergamini2023	3.586353	-30.401632	1.887							3	1	new_family
+2.5a	2	Bergamini2023	3.582828	-30.402793	1.887							3	2	new_family
+2.5b	2	Bergamini2023	3.596990	-30.396469	1.887							3	2	new_family
+2.5c	2	Bergamini2023	3.584819	-30.399517	1.887							3	2	new_family
+2.5d	2	Bergamini2023	3.586322	-30.401490	1.887							3	1	new_family
+2.6a	2	Bergamini2023	3.582772	-30.402683	1.887							3	2	new_family
+2.6b	2	Bergamini2023	3.596942	-30.396421	1.887							3	2	new_family
+2.6c	2	Bergamini2023	3.584722	-30.399463	1.887							3	2	new_family
+2.6d	2	Bergamini2023	3.584719	-30.399462	1.887							3	2	new_family
+2.7a	2	Bergamini2023	3.582530	-30.402313	1.887							3	2	new_family
+2.7b	2	Bergamini2023	3.596734	-30.396291	1.887							3	2	new_family
+2.7c	2	Bergamini2023	3.584473	-30.399289	1.887							3	2	new_family
+2.7d	2	Bergamini2023	3.586236	-30.400869	1.887							3	2	new_family
+3.1a	3	Bergamini2023	3.588807	-30.393797	3.981							3	1	new_family
+3.1b	3	Bergamini2023	3.589375	-30.393857	3.981							3	1	new_family
+3.2a	3	Bergamini2023	3.589222	-30.393844	3.981							3	1	new_family
+3.2b	3	Bergamini2023	3.588965	-30.393815	3.981							3	1	new_family
+3.3a	3	Bergamini2023	3.589487	-30.393869	3.981							3	1	
+3.3b	3	Bergamini2023	3.588639	-30.393785	3.981							3	1	
+4.1a	4	Bergamini2023	3.592126	-30.402660	3.577							3	1	
+4.1b	4	Bergamini2023	3.595674	-30.401633	3.577							3	1	
+4.1c	4	Bergamini2023	3.580452	-30.408946	3.577							3	2	
+4.1e	4	Bergamini2023	3.593651	-30.405117	3.577							3	3	
+4.2a	4	Bergamini2023	3.592098	-30.402527	3.577							3	1	new_family
+4.2b	4	Bergamini2023	3.595567	-30.401518	3.577							3	1	new_family
+6.1a	6	Bergamini2023	3.598541	-30.401792	2.017							3	1	
+6.1b	6	Bergamini2023	3.594058	-30.407999	2.017							3	1	
+6.1c	6	Bergamini2023	3.586433	-30.409363	2.017							3	1	
+8.1a	8	Bergamini2023	3.589712	-30.394335	3.977							2	2	
+8.1b	8	Bergamini2023	3.588831	-30.394202	3.977							2	2	
+18.1a	18	Bergamini2023	3.576124	-30.404472	5.662							3	1	
+18.1b	18	Bergamini2023	3.588377	-30.395630	5.662							3	1	
+18.1c	18	Bergamini2023	3.590730	-30.395543	5.662							3	1	
+22.1a	22	Bergamini2023	3.587924	-30.411608	5.284							3	2	
+22.1b	22	Bergamini2023	3.600048	-30.404415	5.284							3	2	
+22.1c	22	Bergamini2023	3.596592	-30.408989	5.284							3	2	
+26.1a	26	Bergamini2023	3.593898	-30.409724	3.054							3	1	
+26.1b	26	Bergamini2023	3.590353	-30.410575	3.054							3	1	
+26.1c	26	Bergamini2023	3.600112	-30.402939	3.054							9	2	
+26.2a	26	Bergamini2023	3.593993	-30.409699	3.054							3	1	new_family
+26.2b	26	Bergamini2023	3.590272	-30.410610	3.054							3	1	new_family
+26.3a	26	Bergamini2023	3.594031	-30.409604	3.054							2	3	new_family
+26.3b	26	Bergamini2023	3.589969	-30.410593	3.054							2	3	new_family
+33.1a	33	Bergamini2023	3.584712	-30.403146	5.726							3	1	
+33.1b	33	Bergamini2023	3.584397	-30.403393	5.726							3	1	
+34.1a	34	Bergamini2023	3.593428	-30.410834	3.784							2	1	new_position
+34.1b	34	Bergamini2023	3.593812	-30.410714	3.784							3	1	new_position
+34.1c	34	Bergamini2023	3.600711	-30.404593	3.784							2	1	new_position
+42.1a	42	Bergamini2023	3.597313	-30.400605	3.692							3	1	
+42.1b	42	Bergamini2023	3.590956	-30.403252	3.692							3	1	
+42.1c	42	Bergamini2023	3.581590	-30.408631	3.692							3	1	
+42.1d	42	Bergamini2023	3.594245	-30.406388	3.692							3	1	
+42.1e	42	Bergamini2023	3.592415	-30.405197	3.692							1	3	
+61.1a	61	Bergamini2023	3.595522	-30.403485	2.951							1	1	
+61.1b	61	Bergamini2023	3.595138	-30.404471	2.951							3	1	
+62.1a	62	Bergamini2023	3.591326	-30.398643	4.194							3	3	
+62.1b	62	Bergamini2023	3.590582	-30.398918	4.194							3	3	
+63.1a	63	Bergamini2023	3.582214	-30.407142	5.662							3	1	
+63.1b	63	Bergamini2023	3.592836	-30.407032	5.662							3	2	
+63.1c	63	Bergamini2023	3.589153	-30.403427	5.662							3	1	
+63.1d	63	Bergamini2023	3.598830	-30.398273	5.662							3	1	
+64.1a	64	Bergamini2023	3.581203	-30.398734	3.409							3	1	
+64.1c	64	Bergamini2023	3.596420	-30.394264	3.409							3	1	
+65.11	65	Furtak2023	3.556542	-30.375736					2.798	[2.473,3.106]			Close to north-western BCG1.
+65.12	65	Furtak2023	3.556338	-30.376784					2.798	[2.473,3.106]			Close to north-western BCG1.
+65.21	65	Furtak2023	3.556546	-30.37581					2.798	[2.473,3.106]			Close to north-western BCG1.
+65.22	65	Furtak2023	3.556375	-30.376713					2.798	[2.473,3.106]			Close to north-western BCG1.
+65.31	65	Furtak2023	3.556513	-30.376161					2.798	[2.473,3.106]			Close to north-western BCG1.
+65.32	65	Furtak2023	3.556483	-30.37639					2.798	[2.473,3.106]			Close to north-western BCG1.
+66.1	66	Furtak2023	3.554638	-30.373838		2.227	[1.994,2.421]	2.413	[2.406,2.420]			
+66.2	66	Furtak2023	3.553183	-30.375998					2.413	[2.406,2.420]			Close to north-western BCG1.
+66.3	66	Furtak2023	3.552317	-30.378611					2.413	[2.406,2.420]			
+67.1	67	Furtak2023	3.542038	-30.374606		2.423	[2.288,2.510]	2.617	[2.613,2.620]			Bright system, invisible in HST data,
+67.2	67	Furtak2023	3.542829	-30.3735		2.536	[2.491,2.695]	2.617	[2.613,2.620]			
+67.3	67	Furtak2023	3.5443		-30.368061		2.443	[2.347,2.600]	2.617	[2.613,2.620]			
+68.1	68	Furtak2023	3.540446	-30.375067		2.524	[2.495,2.698]	2.327	[2.321,2.332]			Bright system, invisible in HST data.
+68.2	68	Furtak2023	3.540338	-30.372491					2.327	[2.321,2.332]			Close to north-western BCG2.
+68.3	68	Furtak2023	3.543058	-30.368095		2.443	[2.234,2.621]	2.327	[2.321,2.332]			
+68.4	68	Furtak2023	3.542083	-30.372623					2.327	[2.321,2.332]			Radial image; close to north-western BCG2.
+69.1	69	Furtak2023	3.540721	-30.375878		2.423	[2.228,2.630]	2.432	[2.428,2.436]			Bright system, invisible in HST data.
+69.2	69	Furtak2023	3.540929	-30.372219					2.432	[2.428,2.436]			Close to north-western BCG2.
+69.3	69	Furtak2023	3.5431		-30.369105		2.325	[2.224,2.351]	2.432	[2.428,2.436]			
+69.4	69	Furtak2023	3.542638	-30.37246					2.432	[2.428,2.436]			Radial image; close to north-western BCG2.
+70.1	70	Furtak2023	3.552412	-30.37399					2.716	[2.500,3.645]			
+70.2	70	Furtak2023	3.552354	-30.374076					2.716	[2.500,3.645]			
+71.11	71	Furtak2023	3.55735		-30.378181					1.379	[1.245,1.533]			
+71.12	71	Furtak2023	3.55745		-30.378023					1.379	[1.245,1.533]			
+71.13	71	Furtak2023	3.557579	-30.377608					1.379	[1.245,1.533]			
+71.21	71	Furtak2023	3.557329	-30.378215					1.379	[1.245,1.533]			
+71.22	71	Furtak2023	3.557487	-30.377984					1.379	[1.245,1.533]			
+71.23	71	Furtak2023	3.557579	-30.377666					1.379	[1.245,1.533]			
+72.1	72	Furtak2023	3.549646	-30.378461		3.657	[3.131,4.088]	3.544	[3.531,3.565]			
+72.2	72	Furtak2023	3.551117	-30.374756					3.544	[3.531,3.565]			
+72.3	72	Furtak2023	3.5523		-30.372241		3.664	[3.234,4.086]	3.544	[3.531,3.565]			
+74.1	74	Furtak2023	3.545138	-30.374916		2.707	[1.324,4.563]	3.033	[2.832,3.255]			
+74.2	74	Furtak2023	3.545254	-30.374697		4.451	[1.913,4.921]	3.033	[2.832,3.255]			
+74.3	74	Furtak2023	3.547038	-30.369487		2.228	[1.834,2.523]	3.033	[2.832,3.255]			
+77.11	77	Furtak2023	3.551829	-30.377593					1.505	[1.441,1.582]			
+77.12	77	Furtak2023	3.552229	-30.376477					1.505	[1.441,1.582]			
+77.13	77	Furtak2023	3.553975	-30.372984					1.505	[1.441,1.582]			
+78.11	78	Furtak2023	3.579617	-30.35772					2.571	[2.049,2.767]			Close to northern BCG.
+78.12	78	Furtak2023	3.579238	-30.357808					2.571	[2.049,2.767]			Close to northern BCG.
+78.13	78	Furtak2023	3.574879	-30.35607					2.571	[2.049,2.767]			
+78.21	78	Furtak2023	3.579708	-30.35772					2.571	[2.049,2.767]			Close to northern BCG.
+78.22	78	Furtak2023	3.579167	-30.357836					2.571	[2.049,2.767]			System redshift poorly constrained.
+78.23	78	Furtak2023	3.574917	-30.356077					2.571	[2.049,2.767]			
+JD1A	JD1	Furtak2023	3.592508	-30.40149	9.76									see Zitrin et al. (2014); Roberts-Borsani et al. (2022).
+JD1B	JD1	Furtak2023	3.595021	-30.40075	9.76									see Zitrin et al. (2014); Roberts-Borsani et al. (2022).

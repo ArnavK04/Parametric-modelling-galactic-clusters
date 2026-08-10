@@ -1,0 +1,11 @@
+We provide here two models of AS1063 presented in Beauchesne et al. 2023. The first model without B-spline
+that was used to create the B-spline models. The second one is the model presented in the paper with a
+B-spline mesh of 4x4 basis function.
+
+In the two repository, you will find the lenstool input and ouput files except the burnin.dat, which can be
+provided on demand. As we rely on ultranest instead of BayeSys, the burnin phase is not relevant, thus this
+file contain the full sample of the nested sampling run including the weight for each sample. The bayes.dat
+contains the sample of equal probability and can then be used as samples from a standard MCMC output.
+
+With the best.par, every lensing quantities can be computed without the need for the X-rays or fundamental
+plane extensions. Only a B-spline version is needed. Other .par files would need the extension to work properly.

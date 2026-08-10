@@ -1,0 +1,187 @@
+runmode
+        reference  3 342.1832133   -44.530896751
+	inverse 3 0.1 1000
+	restart 1 575
+	end
+grille
+	nombre      512
+	polaire     0
+	nlentille  500
+	nlens_opt   6
+	end
+image
+        multfile         1 mul.cat
+        forme            -2
+        mult_wcs         1
+        sigposArcsec 0.5
+	newton 2
+	end
+X-ray	
+	pixel_area 0.00107584
+	Chandra 1	
+        Optimization 1 
+        Optimization_z 0.3475
+	bkg_map		3 S1063_bkg_map_fit.fits
+	count_map	3 S1063_count_map_fit.fits
+	count_factor_map	3 S1063_count_factor_map_fit.fits
+	intrinsic_error 1.0 1 0.01 1.0
+	end
+potentiel 1 main cluster pot
+	profil     81
+	x_centre     0. 
+	y_centre     0.
+	ellipticite   0.3
+	angle_pos    327.9
+	core_radius_kpc     25
+	cut_radius_kpc     3000.000
+	v_disp     1000.
+	z_lens     0.3475
+	end
+limit 1
+        core_radius_kpc 1 0.0 150.0 0.01
+        ellipticite 1 0.3 0.8  0.01
+        angle_pos 1 -60. 0.0  0.01
+	v_disp    1  800.000 1500.000 0.100
+	end
+potentiel 2 2nd cluster pot
+	profil       81
+	x_centre     -82.952
+	y_centre     40.925
+	ellipticite     0.0
+	angle_pos       0.0
+	core_radius     0.5
+	cut_radius_kpc     500.0
+	v_disp     100.0
+	mag		  20.496
+	z_lens     0.3475
+	end
+limit 2
+       x_centre 3 -82.952 2.0 0.1
+       y_centre 3 40.925 2.0 0.1
+       v_disp 1 50.0 800.0 0.01
+       cut_radius_kpc 1 5 300 1.
+       ellipticite 0 0.0 0.8 0.01
+       angle_pos 0 -90. 90. 0.1
+       end
+potentiel BCG
+        profil       81
+        x_centre     0.0
+        y_centre     0.0
+        ellipticite     0.431169
+        angle_pos       -36.290000
+        core_radius         0.344900
+        core_radius_kpc     1.695801
+        cut_radius         2.348222
+        cut_radius_kpc     11.545717
+        v_disp     405.842872
+        mag               17.260000
+        z_lens     0.3475
+        end
+limit BCG
+        cut_radius_kpc 1 50. 400. 1.
+        v_disp 3 365.500 23.930 .1
+        core_radius 1 .10 9.0 0.1
+        end
+potentiel 3 Cluster gaz
+        profil       81
+        X-ray   1
+        x_centre     18.872405586
+        y_centre     -73.396224
+        ellipticite     0.804756
+        angle_pos       -162.047934
+        core_radius_kpc     927.191363
+        cut_radius_kpc     1250.
+        v_disp     355.926373
+        z_lens     0.3475
+        end
+limit 3 
+        x_centre 1 -20. 15. 0.1
+        y_centre 1 -25. 10. 0.1
+        ellipticite 1 0.0 0.85 0.01
+        angle_pos 1 0. 180. 0.1
+        v_disp 1 200. 800. 0.1
+        core_radius_kpc 3 300. 50. 0.1
+        cut_radius_kpc 0 500. 2500. 0.1
+        end
+potentiel 4 Cluster gaz 2
+        profil       81
+        X-ray   1
+        x_centre     18.872405586
+        y_centre     -73.396224
+        ellipticite     0.804756
+        angle_pos       -162.047934
+        core_radius_kpc     927.191363
+        cut_radius_kpc     1250.
+        v_disp     355.926373
+        z_lens     0.3475
+        end
+limit 4
+        x_centre 1 -35. 5. 0.1
+        y_centre 1 -20. 15. 0.1
+        ellipticite 1 0.0 0.85 0.01
+        angle_pos 1 -90. 90. 0.1
+        v_disp 1 100. 450. 0.1
+        core_radius_kpc 1 0. 300. 0.1
+        cut_radius_kpc 0 500. 2500. 0.1
+        end
+potentiel 5 Cluster gaz 3
+        profil       81
+        X-ray   1
+        x_centre     18.872405586
+        y_centre     -73.396224
+        ellipticite     0.804756
+        angle_pos       -162.047934
+        core_radius_kpc     927.191363
+        cut_radius_kpc     1250.
+        v_disp     355.926373
+        z_lens     0.3475
+        end
+limit 5
+        x_centre 1 -35. 25. 0.1
+        y_centre 1 -15. 30. 0.1
+        ellipticite 1 0.0 0.85 0.01
+        angle_pos 1 -90. 90. 0.1
+        v_disp 1 100. 450. 0.1
+        core_radius_kpc 1 0. 300. 0.1
+        cut_radius_kpc 0 500. 2500. 0.1
+        end
+potfile 1
+	filein  9 potfile_APagul_complete_FP.txt
+	zlens   0.347500
+	type    81
+	corekpc 0.150000
+	mag0    19.687500
+	cutkpc  1 1.0 100. 0.1
+	Factor_Re 1 1.0 20.0
+        sigma   3 195.37412 6.96175
+	slope_FJ   3 1.36689 0.12115
+	Zero_point_FP 3 -0.54227 0.03061
+	slope_SB 3 0.33491 0.02831
+	pivot_sigma  2.08949
+	pivot_mu  19.62834 
+	vdscatter 0 0.000000 0.000000
+	rcutscatter 0 0.000000 0.000000
+	end
+cline   
+        nplan    0 3.1
+        dmax     100.000
+        algorithm   MARCHINGSQUARES
+        limitHigh   1.0
+        limitLow    0.200
+        end
+grande
+	iso         0 0 0.000 0.000 0.000
+	name        best
+	profil      0 0
+	contour     1 0
+	large_dist  0.300
+	end
+cosmologie
+	H0        70.000
+	omega     0.300
+	lambda    0.700
+	end
+champ
+    dmax 150.0
+    end
+fini
