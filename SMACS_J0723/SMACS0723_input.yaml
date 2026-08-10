@@ -1,0 +1,135 @@
+observation:
+  modeler: AK04
+  lens: SMACSJ0723
+  z_d: 0.387
+  reference: [110.826805, -73.454639]
+  pixel_scale: 0.06
+  FOV: [100, 100]
+
+
+cosmology:
+  H0: 70.0
+  Omega_m0: 0.3
+  Omega_r0: 0.0
+  Omega_w0: 0.7
+
+
+source:
+  from_file: true
+  source_file: SMACS0723_images.txt
+  source3:
+    z_s:
+      value: 1.87
+      range: [1.0, 3.0]
+  source4:
+    z_s:
+      value: 2.14
+      range: [1.0, 3.0]
+  source6:
+    z_s:
+      value: 1.69
+      range: [1.0, 3.0]
+  source8:
+    z_s:
+      value: 5.00
+      range: [4.0, 15.0]
+  source9:
+    z_s:
+      value: 3.00
+      range: [1.0, 5.0]
+  source10:
+    z_s:
+      value: 3.00
+      range: [1.0, 5.0]
+  source11:
+    z_s:
+      value: 3.00
+      range: [1.0, 5.0]
+  source12:
+    z_s:
+      value: 3.00
+      range: [1.0, 5.0]
+  source13:
+    z_s:
+      value: 3.00
+      range: [1.0, 5.0]
+  source15:
+    z_s:
+      value: 3.00
+      range: [1.0, 5.0]
+  source16:
+    z_s:
+      value: 3.00
+      range: [1.0, 5.0]
+  source17:
+    z_s:
+      value: 3.00
+      range: [1.0, 5.0]
+
+
+lens_model:
+  multiplane: false
+  total_lenses: 3
+  lens1:
+    lens: SIELens
+    x_c: 
+      value: 110.826805
+      range: [-2, 2]
+    y_c: 
+      value: -73.454639
+      range: [-2, 2]
+    v_d:
+      value: 1000
+      range: [500.0, 1500.0]
+    x_s:
+      value: 1.0
+      range: [0.1, 30.0]
+    eps:
+      value: 0.5
+      range: [0.1, 0.7]
+    pa:
+      value: 10.0
+      range: [-45.0, 45.0]
+  lens2:
+    lens: ExternalEffects
+    kappa: 0.0
+    gamma:
+      value: 0.1
+      range: [0.0, 0.2]
+    angle:
+      value: 0.0
+      range: [-90.0, 90.0]
+  lens3:
+    lens: MultiPJELens
+    galaxy_file: SMACS0723_cluster_gals.txt
+    scaling_relation:
+      ref_mag: 17.6631
+      ref_sigma:
+        value: 322.0
+        range: [200.0, 500.0]
+      ref_core: 0.05
+      ref_cut: 
+        value: 5.0
+        range: [0.1, 30.0]
+      slope_sigma: 0.25
+      slope_core: 0.50
+      slope_cut: 0.50
+
+
+sampling:
+  scheme: SourcePlane
+  verbose: true
+  optimizer:
+    enabled: true
+    convergence:
+      run_mode: random
+      max_runs: 100000
+      tolerance: 1E-4
+    NM:
+      max_iter: 100000
+      tolerance: 1e-6
+  mcmc:
+    enabled: true
+    AIES:
+      n_chains: 48
+      n_steps: 1000000
