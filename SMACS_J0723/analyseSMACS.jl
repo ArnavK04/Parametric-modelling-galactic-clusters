@@ -24,8 +24,8 @@ jldopen("$(path)$(name).jld2", "r") do data
     LensModel.get_best_fit_rms(model, chains, logL)
     println("----------------------------------------")
     # get aic and bic
-    AIC = get_AIC(model, chains, logL)
-    BIC = get_BIC(model, chains, logL, N_constraints)
+    AIC = LensModel.get_AIC(model, logL)
+    BIC = LensModel.get_BIC(model, logL, N_constraints)
     println("AIC: $AIC")
     println("BIC: $BIC")
 
