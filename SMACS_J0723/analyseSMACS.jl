@@ -6,6 +6,7 @@ path = "/home/arnav/Parametric/SMACSJ0723_outputs/"
 name = "SMACSJ0723_2026-08-11"
 N_constraints = 98     # 49 total images
 
+time_start = time()
 # Read the JLD2 file
 jldopen("$(path)$(name).jld2", "r") do data
     # Read data
@@ -51,3 +52,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     println("fits saved")
 
 end
+
+time_end = time()
+
+println("Total time taken: $(time_end - time_start) seconds")
