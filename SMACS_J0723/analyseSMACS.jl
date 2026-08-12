@@ -18,7 +18,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     free_params = LensModel.free_parameter_names(model)
     println("Free parameters loaded: $free_params")
     println("----------------------------------------")
-    best_theta, log_post, lower_err, upper_err = LensModel.get_best_fit_parameters(logL, chains=chains, burn_in=0.2, with_errors=true, thin=1, print_table=true, free_param_names = free_params)
+    best_theta, log_post, lower_err, upper_err = LensModel.get_best_fit_parameters(logL, chains=chains, burn_in=0.2, with_errors=true, thin=1, print_table=true, free_parameter_names = free_params)
     println("----------------------------------------")
     # Get rms
     LensModel.get_best_fit_rms(model, chains, logL)
