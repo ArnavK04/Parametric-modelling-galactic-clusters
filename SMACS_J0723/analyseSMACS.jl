@@ -59,6 +59,13 @@ jldopen("$(path)$(name).jld2", "r") do data
     println("Done plotting modelling results.")
     flush(stdout)
 
+    # plotting each individual image system predictions
+    n_sources = length(model.source_config.sources)
+    plot_sids = collect(1:n_sources)
+    for sid in plot_sids
+        LensModel.plot_best_model(model, chains, logL, sid, plo_name="$(path)$(name)_best_model_$(sid).png")
+    end
+
     cosmo_best = LensModel.get_cosmology(data; burn_in=0.2, thin=1, with_errors=false)
     LensModel.save_best_fits(data)
 
