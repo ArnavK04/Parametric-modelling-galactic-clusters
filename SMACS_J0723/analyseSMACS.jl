@@ -54,7 +54,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     fig_corner = LensModel.plot_corner(chains, logL, free_parameter_names=free_params, burn_in=0.3, plot_name="$(path)$(name)_corner_plot.png")
     fig_trace = LensModel.plot_trace(chains, free_parameter_names=free_params, burn_in=0.3, plot_name="$(path)$(name)_trace_plot.png")
     fig_model = LensModel.plot_best_model(model, chains, logL, two_panel = true, z_s = 1.5, plot_name="$(path)$(name)_best_model.png")
-    fig_scatter, ax_scatter = LensModel.plot_image_scatter(model, chains, logL, two_panel = true, plot_name="$(path)$(name)_image_scatter.png")
+    fig_scatter, ax_scatter = LensModel.plot_image_scatter(model, chains, logL, plot_name="$(path)$(name)_image_scatter.png")
     println("Time taken to plot modelling results: $(time() - t0) seconds")
     println("Done plotting modelling results.")
     flush(stdout)
@@ -63,7 +63,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     n_sources = length(model.source_config.sources)
     plot_sids = collect(1:n_sources)
     for sid in plot_sids
-        LensModel.plot_best_model(model, chains, logL, source=sid, plot_name="$(path)$(name)_best_model_$(sid).png")
+        LensModel.plot_best_model(model, chains, logL, two_panel = true, source=sid, plot_name="$(path)$(name)_best_model_$(sid).png")
     end
 
     cosmo_best = LensModel.get_cosmology(data; burn_in=0.2, thin=1, with_errors=false)
