@@ -1,6 +1,6 @@
 observation:
   modeler: AK04
-  lens: SMACSJ0723_8
+  lens: SMACSJ0723_12
   z_d: 0.387
   reference: [110.826805, -73.454639]
   pixel_scale: 0.06
@@ -16,7 +16,7 @@ cosmology:
 
 source:
   from_file: true
-  source_file: SMACS0723_images8.txt
+  source_file: SMACS0723_images12.txt
   source3:
     z_s:
       value: 1.87
@@ -37,6 +37,10 @@ source:
     z_s:
       value: 3.00
       range: [1.0, 5.0]
+      #  source9:
+      #    z_s:
+      #      value: 3.00
+      #      range: [1.0, 5.0]
   source10:
     z_s:
       value: 3.00
@@ -49,7 +53,7 @@ source:
     z_s:
       value: 3.00
       range: [1.0, 5.0]
-  source13:
+  source14:
     z_s:
       value: 3.00
       range: [1.0, 5.0]
@@ -58,10 +62,6 @@ source:
       value: 3.00
       range: [1.0, 5.0]
   source16:
-    z_s:
-      value: 3.00
-      range: [1.0, 5.0]
-  source17:
     z_s:
       value: 3.00
       range: [1.0, 5.0]
