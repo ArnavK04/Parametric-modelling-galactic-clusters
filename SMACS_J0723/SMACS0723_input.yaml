@@ -1,6 +1,6 @@
 observation:
   modeler: AK04
-  lens: SMACSJ0723_12
+  lens: SMACSJ0723_aNFW
   z_d: 0.387
   reference: [110.826805, -73.454639]
   pixel_scale: 0.06
@@ -16,7 +16,7 @@ cosmology:
 
 source:
   from_file: true
-  source_file: SMACS0723_images12.txt
+  source_file: SMACS0723_images.txt
   source3:
     z_s:
       value: 1.87
@@ -37,10 +37,6 @@ source:
     z_s:
       value: 3.00
       range: [1.0, 5.0]
-      #  source9:
-      #    z_s:
-      #      value: 3.00
-      #      range: [1.0, 5.0]
   source10:
     z_s:
       value: 3.00
@@ -53,7 +49,7 @@ source:
     z_s:
       value: 3.00
       range: [1.0, 5.0]
-  source14:
+  source13:
     z_s:
       value: 3.00
       range: [1.0, 5.0]
@@ -65,25 +61,29 @@ source:
     z_s:
       value: 3.00
       range: [1.0, 5.0]
+  source17:
+    z_s:
+      value: 3.00
+      range: [1.0, 5.0]
 
 
 lens_model:
   multiplane: false
   total_lenses: 3
   lens1:
-    lens: SIELens
+    lens: aNFWLens
     x_c: 
       value: 110.826805
       range: [-2, 2]
     y_c: 
       value: -73.454639
       range: [-2, 2]
-    v_d:
-      value: 1000
-      range: [500.0, 1500.0]
-    x_s:
-      value: 1.0
-      range: [0.1, 30.0]
+    mass:
+      value: 14.0
+      range: [12.0, 16.0]
+    c:
+      value: 8.0
+      range: [2.0, 15.0]
     eps:
       value: 0.5
       range: [0.1, 0.7]
