@@ -39,7 +39,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     param_ref = Dict(p.key => p.refer for p in model.parameters)
     pvals     = LensModel.LensModelUtils.param_dict(model, best_theta, param_ref)
     cosmo     = LensModel.LensModelUtils.current_cosmology(model, pvals)
-    adis      = LensModel.LensModelUtils.adis_current(model, param_ref)
+    adis      = LensModel.LensModelUtils.adis_current(model, param_ref, cosmo)
     sid = 5
     kid = 1
 
