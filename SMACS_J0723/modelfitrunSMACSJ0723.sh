@@ -1,10 +1,10 @@
 #!/bin/bash
 #PBS -q workq
-#PBS -N pm_SMACS0723test0_im12
+#PBS -N pm_SMACS0723test0_aNFW
 #PBS -l nodes=comp1:ppn=16
 #PBS -V
 
-LOGNAME="SMACSJ0723_test0_im12"
+LOGNAME="SMACSJ0723_test0_aNFW"
 
 exec > "/home/arnav/Parametric/logfiles/logfiles/${LOGNAME}.log" 2> "/home/arnav/Parametric/logfiles/errfiles/${LOGNAME}.err"
 
