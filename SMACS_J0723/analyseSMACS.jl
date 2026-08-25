@@ -41,7 +41,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     cosmo     = LensModel.LensModelUtils.current_cosmology(model, pvals)
     adis      = LensModel.LensModelUtils.adis_current(model, param_ref, cosmo)
     ax_all, ay_all    = LensModel.LensModelUtils.lens_quantities_def(model, best_lens)
-    A_all     = LensModel.LensModelUtils.lens_quantities_jac(model, best_lens, adis)
+    A_all     = LensModel.LensModelUtils.lens_quantities_jac(model, best_lens)
 
     logL_img, β_mod_s, θ_mod_s, all_converged = LensModel.Likelihood.logL_imageplane_fast(model, best_lens, adis, ax_all, ay_all, A_all)
     println("Log-likelihood for the best fit model in image plane is: $(logL_img)")
