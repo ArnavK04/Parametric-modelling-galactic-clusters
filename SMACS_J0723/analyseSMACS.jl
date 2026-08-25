@@ -29,7 +29,7 @@ jldopen("$(path)$(name).jld2", "r") do data
 
     # Get the best fit lens model
     best_lens, best_logL = LensModel.get_best_model(model, mcmc_chains = chains, mcmc_logL = logL)
-    println("Best log-likelihood is : $(best_logL)")
+    println("Best log-likelihood in source plane is : $(best_logL)")
 
     # Construct grid
     FOV = model.observation.FOV
@@ -40,6 +40,14 @@ jldopen("$(path)$(name).jld2", "r") do data
     pvals     = LensModel.LensModelUtils.param_dict(model, best_theta, param_ref)
     cosmo     = LensModel.LensModelUtils.current_cosmology(model, pvals)
     adis      = LensModel.LensModelUtils.adis_current(model, param_ref, cosmo)
+    ax_all, ay_all    = LensModel.LensModelUtils.lens_quantities_def(model, best_lens)
+    A_all     = LensModel.LensModelUtils.lens_quantities_jac(model, best_lens, adis)
+
+    logL_img, β_mod_s, θ_mod_s, all_converged = LensModel.Likelihood.logL_imageplane_fast(model, best_lens, adis, ax_all, ay_all, A_all)
+    println("Log-likelihood for the best fit model in image plane is: $(logL_img)")
+    println("All sources converged: $(all_converged)")
+    flush(stdout)
+
     sid = 5
     kid = 1
 
