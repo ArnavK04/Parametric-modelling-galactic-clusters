@@ -2,6 +2,7 @@ using LensFactory
 using JLD2
 using CairoMakie
 using LensFactory.LFUtils
+using LensFactory.LensModel
 
 path = "/home/arnav/Parametric/SMACSJ0723_outputs/jackknife2026-08-24_aNFW/"
 name = "SMACSJ0723_aNFW_20260824"
