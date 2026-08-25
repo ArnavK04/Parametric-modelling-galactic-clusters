@@ -2,7 +2,6 @@ using LensFactory
 using JLD2
 using CairoMakie
 using LensFactory.LFUtils
-using LensFactory.LensModel
 
 path = "/home/arnav/Parametric/SMACSJ0723_outputs/jackknife2026-08-24_aNFW/"
 name = "SMACSJ0723_aNFW_20260824"
@@ -38,9 +37,9 @@ jldopen("$(path)$(name).jld2", "r") do data
     x_grid, y_grid = Lenses.get_meshgrid(0.5 * FOV[1], 0.5 * FOV[2], pixel_scale)
 
     param_ref = Dict(p.key => p.refer for p in model.parameters)
-    pvals     = LensModelUtils.param_dict(model, best_theta, param_ref)
-    cosmo     = LensModelUtils.current_cosmology(model, pvals)
-    adis      = LensModelUtils.adis_current(model, param_ref)
+    pvals     = LensModel.LensModelUtils.param_dict(model, best_theta, param_ref)
+    cosmo     = LensModel.LensModelUtils.current_cosmology(model, pvals)
+    adis      = LensModel.LensModelUtils.adis_current(model, param_ref)
     sid = 5
     kid = 1
 
