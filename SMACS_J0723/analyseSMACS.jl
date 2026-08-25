@@ -1,6 +1,7 @@
 using LensFactory
 using JLD2
 using CairoMakie
+using LensFactory.LFUtils
 
 path = "/home/arnav/Parametric/SMACSJ0723_outputs/jackknife2026-08-24_aNFW/"
 name = "SMACSJ0723_aNFW_20260824"
@@ -25,6 +26,66 @@ jldopen("$(path)$(name).jld2", "r") do data
     println("Time taken to load best fit parameters: $(time() - t0) seconds")
     println("----------------------------------------")
     flush(stdout)
+
+    # Get the best fit lens model
+    best_lens, best_logL = LensModel.get_best_model(model, chains, logL)
+    println("Best log-likelihood is : $(best_logL)")
+
+    # Construct grid
+    FOV = model.observation.FOV
+    pixel_scale = model.observation.pixel_scale
+    x_grid, y_grid = Lenses.get_meshgrid(0.5 * FOV[1], 0.5 * FOV[2], pixel_scale)
+
+    param_ref = Dict(p.key => p.refer for p in model.parameters)
+    pvals     = LensModelUtils.param_dict(model, best_theta, param_ref)
+    cosmo     = LensModelUtils.current_cosmology(model, pvals)
+    adis      = LensModelUtils.adis_current(model, param_ref)
+    sid = 5
+    kid = 1
+
+    src = model.source_config.sources[sid]
+    adis_value = adis[sid]
+    z_s = 1.425400  # get this from the images files for source 5
+
+    knot = src.knots[kid]
+    x = knot.x
+    y = knot.y
+    images_obs = [(xi, yi) for (xi, yi) in zip(x, y)]
+    if size(x, 1) > 1
+        # Get deflection at the image positions
+        αx, αy = Lenses.get_deflection(best_lens, x, y)
+
+        # Get magnification at the image positions
+        μ_obs = Lenses.get_magnification_image(best_lens, x, y, adis_value)
+
+        # Calculate individual image source positions
+        βx_indi = x - adis_value * αx
+        βy_indi = y - adis_value * αy
+
+        # Calculate barycenter source position
+        βx_model = sum(βx_indi .* μ_obs.^2) / sum(μ_obs.^2)
+        βy_model = sum(βy_indi .* μ_obs.^2) / sum(μ_obs.^2)
+    else
+        αx, αy = Lenses.get_deflection(best_lens, x, y)
+        βx_model = x - adis_value * αx
+        βy_model = y - adis_value * αy
+    end
+    images = Lenses.get_image(best_lens, x_grid, y_grid, adis_value, (βx_model, βy_model))
+    # get the lens redshift and add
+    z_d = model.observation.z_d
+    D_d = Cosmology.angular_diameter_distance(cosmo, 0.0, z_d)
+
+    td_obs = Lenses.get_time_delay(best_lens, x, y, adis_value, z_d, D_d, (βx_model, βy_model))
+    td_model = Lenses.get_time_delay(best_lens, first.(images), last.(images), adis_value, z_d, D_d, (βx_model, βy_model))
+    reltd_obs = td_obs .- minimum(td_obs)
+    reltd_model = td_model .- minimum(td_model)
+    println("Observed images are at $(images_obs)")
+    println("Model predicted images are at $(images)")
+    println("Observed time delays are $(reltd_obs) seconds or $((reltd_obs)./86400) days")
+    println("Model time delays are $(reltd_model) seconds or $((reltd_model)./86400) days")
+    println("source redshift is $z_s")
+    flush(stdout)
+
     # Get rms
     println("Calculating best fit rms...")
     t0 = time()
