@@ -122,12 +122,8 @@ lens_model:
       slope_cut: 0.50
   lens4:
     lens: PJELens
-    x_c: 
-      value: 110.792565
-      range: [-2, 2]
-    y_c: 
-      value: -73.447629
-      range: [-2, 2]
+    x_c: 110.792565
+    y_c: -73.447629
     v_d:
       value: 300.0
       range: [100.0, 500.0]
@@ -145,12 +141,8 @@ lens_model:
       range: [-45.0, 45.0]
   lens5:
     lens: PJELens
-    x_c: 
-      value: 110.800617
-      range: [-2, 2]
-    y_c: 
-      value: -73.448521
-      range: [-2, 2]
+    x_c: 110.800617
+    y_c: -73.448521
     v_d:
       value: 300.0
       range: [100.0, 500.0]
