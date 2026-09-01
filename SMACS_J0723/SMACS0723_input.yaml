@@ -115,7 +115,7 @@ lens_model:
         range: [200.0, 500.0]
       ref_core: 0.05
       ref_cut: 
-        value: 5.0
+        value: 2.5
         range: [0.1, 30.0]
       slope_sigma: 0.25
       slope_core: 0.50
@@ -127,18 +127,10 @@ lens_model:
     v_d:
       value: 300.0
       range: [100.0, 500.0]
-    x_s:
-      value: 0.05
-      range: [0.0, 1.0]
-    x_t:
-      value: 5.0
-      range: [0.1, 30.0]
-    eps:
-      value: 0.5
-      range: [0.1, 0.7]
-    pa:
-      value: 10.0
-      range: [-45.0, 45.0]
+    x_s: 0.05
+    x_t: 2.5
+    eps: 0.001
+    pa: 0.0
   lens5:
     lens: PJELens
     x_c: 110.800617
@@ -146,18 +138,10 @@ lens_model:
     v_d:
       value: 300.0
       range: [100.0, 500.0]
-    x_s:
-      value: 0.05
-      range: [0.0, 1.0]
-    x_t:
-      value: 5.0
-      range: [0.1, 30.0]
-    eps:
-      value: 0.5
-      range: [0.1, 0.7]
-    pa:
-      value: 10.0
-      range: [-45.0, 45.0]
+    x_s: 0.05
+    x_t: 2.5
+    eps: 0.001
+    pa: 0.0
 
 
 sampling:
