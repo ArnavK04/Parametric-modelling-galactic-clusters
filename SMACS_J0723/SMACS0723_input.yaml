@@ -129,8 +129,8 @@ lens_model:
       range: [100.0, 500.0]
     x_s: 0.05
     x_t: 2.5
-    eps: 0.001
-    pa: 0.0
+    eps: 0.10313255   # e_code = e_cat/(2-e_cat)
+    pa: -4.87535833   # pa_code = (90 + pa_cat) mod 180
   lens5:
     lens: PJELens
     x_c: 110.800617
@@ -140,8 +140,8 @@ lens_model:
       range: [100.0, 500.0]
     x_s: 0.05
     x_t: 2.5
-    eps: 0.001
-    pa: 0.0
+    eps: 0.07276555
+    pa: -70.2520478
 
 
 sampling:
