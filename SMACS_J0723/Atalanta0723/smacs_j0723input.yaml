@@ -1,0 +1,91 @@
+observation:
+  modeler: AK04
+  lens: smacsJ0723_aNFW_t0
+  z_d: 0.387
+  reference: [110.826964, -73.454732] #[110.826805, -73.454639]
+  pixel_scale: 0.06
+  FOV: [100, 100]
+
+
+cosmology:
+  H0: 70.0
+  Omega_m0: 0.3
+  Omega_r0: 0.0
+  Omega_w0: 0.7
+
+
+source:
+  from_file: true
+  source_file: image_systems_v2.txt
+
+lens_model:
+  multiplane: false
+  total_lenses: 3
+  lens1:
+    lens: aNFWLens
+    x_c: 
+      value: 110.826964
+      range: [-2, 2]
+    y_c: 
+      value: -73.454732
+      range: [-2, 2]
+    mass:
+      value: 14.0
+      range: [12.0, 16.0]
+    c:
+      value: 8.0
+      range: [2.0, 15.0]
+#    v_d:
+#      value: 1000
+#      range: [500.0, 1500.0]
+#    x_s:
+#      value: 1.0
+#      range: [0.1, 30.0]
+    eps:
+      value: 0.5
+      range: [0.1, 0.7]
+    pa:
+      value: 10.0
+      range: [-45.0, 45.0]
+  lens2:
+    lens: ExternalEffects
+    kappa: 0.0
+    gamma:
+      value: 0.1
+      range: [0.0, 0.2]
+    angle:
+      value: 0.0
+      range: [-90.0, 90.0]
+  lens3:
+    lens: MultiPJELens
+    galaxy_file: smacs_j0723_members_clusterLF.txt
+    scaling_relation:
+      ref_mag: 17.762521
+      ref_sigma:
+        value: 322.0
+        range: [200.0, 500.0]
+      ref_core: 0.05
+      ref_cut: 
+        value: 2.5
+        range: [0.1, 30.0]
+      slope_sigma: 0.25
+      slope_core: 0.50
+      slope_cut: 0.50
+
+sampling:
+  scheme: SourcePlane
+  verbose: true
+  optimizer:
+    enabled: true
+    convergence:
+      run_mode: random
+      max_runs: 100000
+      tolerance: 1E-4
+    NM:
+      max_iter: 100000
+      tolerance: 1e-6
+  mcmc:
+    enabled: true
+    AIES:
+      n_chains: 48
+      n_steps: 1000000
