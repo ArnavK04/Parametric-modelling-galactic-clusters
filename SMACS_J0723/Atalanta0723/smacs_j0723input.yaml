@@ -1,6 +1,6 @@
 observation:
   modeler: AK04
-  lens: smacsJ0723_SIE_t0img5._0rm
+  lens: smacsJ0723_SIE_t0_BCG_pert
   z_d: 0.387
   reference: [110.826964, -73.454732] #[110.826805, -73.454639]
   pixel_scale: 0.06
@@ -20,7 +20,7 @@ source:
 
 lens_model:
   multiplane: false
-  total_lenses: 3
+  total_lenses: 8
   lens1:
     lens: SIELens
     x_c: 
@@ -71,6 +71,61 @@ lens_model:
       slope_sigma: 0.25
       slope_core: 0.50
       slope_cut: 0.50
+  lens4:      # number 17725
+    lens: PJELens
+    x_c: 110.792726
+    y_c: -73.447727
+    v_d:
+      value: 300.0
+      range: [100.0, 500.0]
+    x_s: 0.05
+    x_t: 2.5
+    eps: 0.080785 
+    pa: -16.060361   
+  lens5:      # number 17702
+    lens: PJELens
+    x_c: 110.800773
+    y_c: -73.448617
+    v_d:
+      value: 300.0
+      range: [100.0, 500.0]
+    x_s: 0.05
+    x_t: 2.5
+    eps: 0.061701
+    pa: -48.065817
+  lens6:      # P8
+    lens: PJELens
+    x_c: 110.8250358
+    y_c: -73.45231917
+    v_d:
+      value: 200.0
+      range: [50.0, 400.0]
+    x_s: 0.05
+    x_t: 2.5
+    eps: 0.05
+    pa: 10.0
+  lens7:      # P9
+    lens: PJELens
+    x_c: 110.8231784
+    y_c: -73.4523677
+    v_d:
+      value: 200.0
+      range: [50.0, 400.0]
+    x_s: 0.05
+    x_t: 2.5
+    eps: 0.6
+    pa: -45.0
+  lens8:      # P10
+    lens: PJELens
+    x_c: 110.8229033
+    y_c: -73.4518954
+    v_d:
+      value: 200.0
+      range: [50.0, 400.0]
+    x_s: 0.05
+    x_t: 2.5
+    eps: 0.05
+    pa: 30
 
 sampling:
   scheme: SourcePlane
@@ -89,9 +144,3 @@ sampling:
     AIES:
       n_chains: 48
       n_steps: 1000000
-
-
-# removed these
-#   5.000000   1.000000 110.823896 -73.451901   1.425000   0.030000   0.030000   0.000000   0.000000   0.000000   0.000000   5.100000
-#   5.000000   1.000000 110.822348 -73.452792   1.425000   0.030000   0.030000   0.000000   0.000000   0.000000   0.000000   5.200000
-#   5.000000   1.000000 110.820931 -73.460219   1.425000   0.100000   0.100000   0.000000   0.000000   0.000000   0.000000   5.300000
