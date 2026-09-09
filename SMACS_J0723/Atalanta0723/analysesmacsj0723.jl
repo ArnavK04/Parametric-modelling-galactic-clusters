@@ -3,9 +3,9 @@ using JLD2
 using CairoMakie
 using LensFactory.LFUtils
 
-path = "/home/arnav/Parametric/SMACSJ0723_outputs/SMACSJ0723_aNFW_BCG_2_35_20260902/"
-name = "SMACSJ0723_aNFW_BCG_2_35_20260902"
-N_constraints = 98     # 49 total images
+path = "/home/arnav/Parametric/SMACSJ0723_outputs/smacsJ0723_SIE_t0_20260909/"
+name = "smacsJ0723_SIE_t0_20260909"
+N_constraints = 60     # 30 total images
 println("N_constrain = $N_constraints")
 
 time_start = time()
