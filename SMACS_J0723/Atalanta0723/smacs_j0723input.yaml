@@ -1,6 +1,6 @@
 observation:
   modeler: AK04
-  lens: smacsJ0723_SIE_t0_BCG_pert
+  lens: smacsJ0723_SIE_t0_BCG_pert_vdp50_400
   z_d: 0.387
   reference: [110.826964, -73.454732] #[110.826805, -73.454639]
   pixel_scale: 0.06
@@ -125,7 +125,7 @@ lens_model:
     x_s: 0.05
     x_t: 2.5
     eps: 0.05
-    pa: 30
+    pa: 30.0
 
 sampling:
   scheme: SourcePlane

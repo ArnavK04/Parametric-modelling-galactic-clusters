@@ -1,10 +1,10 @@
 #!/bin/bash
 #PBS -q workq
-#PBS -N pm_ATsmacsj0723_SIE_t0imgv2_img5._0rm
+#PBS -N pm_ATsmacsj0723_SIE_t0imgv2_BCG_pert_vdp_50_400
 #PBS -l nodes=comp1:ppn=16
 #PBS -V
 
-LOGNAME="ATsmacsj0723_SIE_t0_imgv2_img5._0rm"
+LOGNAME="ATsmacsj0723_SIE_t0_imgv2_BCG_pert_vdp_50_400"
 
 exec > "/home/arnav/Parametric/logfiles/logfiles/${LOGNAME}.log" 2> "/home/arnav/Parametric/logfiles/errfiles/${LOGNAME}.err"
 
