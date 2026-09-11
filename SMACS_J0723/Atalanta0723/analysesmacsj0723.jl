@@ -19,6 +19,8 @@ jldopen("$(path)$(name).jld2", "r") do data
 	
     free_params = LensModel.free_parameter_names(model)
     t0 = time()
+    k = length(free_params)
+    println("Number of free parameters: $k")
     println("Free parameters loaded: $free_params")
     println("----------------------------------------")
     best_theta, log_post, lower_err, upper_err = LensModel.get_best_fit_parameters(logL, chains=chains, burn_in=0.2, with_errors=true, thin=1, print_table=true, free_parameter_names = free_params)
@@ -104,8 +106,17 @@ jldopen("$(path)$(name).jld2", "r") do data
     # get aic and bic
     AIC = LensModel.get_AIC(model, logL)
     BIC = LensModel.get_BIC(model, logL, N_constraints)
+    println("# Free parameters: $k")
+    println("# Constraints: $N_constraints")
+    println("SOURCE PLANE AIC and BIC:")
     println("AIC: $AIC")
     println("BIC: $BIC")
+    println("IMAGE PLANE  AIC and BIC:")
+    img_AIC = -2.0 * logL_img + 2.0 * k
+    img_BIC = -2.0 * logL_img + k * log(N_constraints)
+    println("AIC: $img_AIC")
+    println("BIC: $img_BIC")
+    flush(stdout)
 
     # MCMC diagnostics
     println("----------------------------------------")
