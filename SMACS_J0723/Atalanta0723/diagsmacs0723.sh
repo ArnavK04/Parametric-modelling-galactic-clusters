@@ -1,10 +1,10 @@
 #!/bin/bash
 #PBS -q workq
-#PBS -N diagpmsmacsJ0723_SIE_t0_BCG_pert_vdp5_200_20260910
+#PBS -N diagpmsmacsJ0723_aNFW_gold_BCG_pert_vdp10_250_refsig200_400_20261025
 #PBS -l nodes=comp1:ppn=1
 #PBS -V
 
-LOGNAME="smacsJ0723_SIE_t0_BCG_pert_vdp5_200_20260910_analyse"
+LOGNAME="smacsJ0723_aNFW_gold_BCG_pert_vdp10_250_refsig200_400_20261025_analyse"
 
 exec > "/home/arnav/Parametric/logfiles/logfiles/${LOGNAME}.log" 2> "/home/arnav/Parametric/logfiles/errfiles/${LOGNAME}.err"
 
