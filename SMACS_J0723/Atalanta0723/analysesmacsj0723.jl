@@ -7,6 +7,20 @@ path = "/home/arnav/Parametric/SMACSJ0723_outputs/Atalanta0723/smacsJ0723_aNFW_g
 name = "smacsJ0723_aNFW_gold_BCG_pert_vdp10_250_refsig200_400_20261025"
 N_constraints = 48     # 24total images
 println("N_constrain = $N_constraints")
+clustername = "SMACS0723"
+if clustername == "SMACS0723"
+    X_lim_plot = 50.0
+    Y_lim_plot = 50.0
+    kappa_range = (0, 2.0)
+elseif clustername == "Hera"
+    X_lim_plot = 50.0
+    Y_lim_plot = 50.0
+    kappa_range = (0, 2.70)
+else
+    X_lim_plot = 100.0
+    Y_lim_plot = 100.0
+    kappa_range = (0, 3.0)
+end
 
 time_start = time()
 # Read the JLD2 file
@@ -44,6 +58,30 @@ jldopen("$(path)$(name).jld2", "r") do data
     adis      = LensModel.LensModelUtils.adis_current(model, param_ref, cosmo)
     ax_all, ay_all    = LensModel.LensModelUtils.lens_quantities_def(model, best_lens)
     A_all     = LensModel.LensModelUtils.lens_quantities_jac(model, best_lens)
+
+    zs_ = 9
+    zd_ = model.observation.z_d
+    cosmo = Cosmology.init_cosmology()      # default cosmo
+    Dds_ = Cosmology.angular_diameter_distance(cosmo, zd_, zs_)
+    Ds_ = Cosmology.angular_diameter_distance(cosmo, 0.0, zs_)
+    adis_9 = Dds_ / Ds_
+
+    cc_fig, cc_axes = Lenses.plot_image_plane(best_lens, x_grid, y_grid, adis_9, two_panel = true)        # saving critical curves
+    xlims!(cc_axes[1], -X_lim_plot, X_lim_plot)
+    ylims!(cc_axes[1], -Y_lim_plot, Y_lim_plot)
+    xlims!(cc_axes[2], -X_lim_plot, X_lim_plot)
+    ylims!(cc_axes[2], -Y_lim_plot, Y_lim_plot)
+    save("$(path)$(name)_critical_curves.png", cc_fig)
+
+    sd_fig, sd_axes = Lenses.plot_surface_density(best_lens, x_grid, y_grid, adis_9, unit = :convergence, heatmap_kws = (colormap=:turbo, colorrange=kappa_range))
+    xlims!(sd_axes, -X_lim_plot, X_lim_plot)
+    ylims!(sd_axes, -Y_lim_plot, Y_lim_plot)
+    save("$(path)$(name)_kappa_map.png", sd_fig)   
+
+    mg_fig, mg_axes = Lenses.plot_magnification_map(best_lens, x_grid, y_grid, adis_9, heatmap_kws = (colormap=:turbo, colorrange=(0, 100)))
+    xlims!(mg_axes, -X_lim_plot, X_lim_plot)
+    ylims!(mg_axes, -Y_lim_plot, Y_lim_plot)
+    save("$(path)$(name)_magnification_map.png", mg_fig)
 
     logL_img, β_mod_s, θ_mod_s, all_converged = LensModel.Likelihood.logL_imageplane_fast(model, best_lens, adis, ax_all, ay_all, A_all)
     println("Log-likelihood for the best fit model in image plane is: $(logL_img)")
@@ -134,8 +172,12 @@ jldopen("$(path)$(name).jld2", "r") do data
     t0 = time()
     fig_corner = LensModel.plot_corner(chains, logL, free_parameter_names=free_params, burn_in=0.3, plot_name="$(path)$(name)_corner_plot.png")
     fig_trace = LensModel.plot_trace(chains, free_parameter_names=free_params, burn_in=0.3, plot_name="$(path)$(name)_trace_plot.png")
-    fig_model = LensModel.plot_best_model(model, chains, logL, two_panel = true, z_s = 1.5, plot_name="$(path)$(name)_best_model.png")
-    fig_scatter, ax_scatter = LensModel.plot_image_scatter(model, chains, logL, plot_name="$(path)$(name)_image_scatter.png")
+    fig_model = LensModel.plot_best_model(model, chains, logL, two_panel = true, z_s = 9.0, plot_name="$(path)$(name)_best_model.png")      # best model at 9
+    fig_scatter, ax_scatter = LensModel.plot_image_scatter(model, chains, logL, plot_name="$(path)$(name)_image_scatter.png", point_kws = (markersize  = 5, 
+                                                    marker      = :circle, 
+                                                    color       = :transparent, 
+                                                    strokecolor = :black, 
+                                                    strokewidth = 2))
     println("Time taken to plot modelling results: $(time() - t0) seconds")
     println("Done plotting modelling results.")
     flush(stdout)
