@@ -1,6 +1,6 @@
 using LensFactory
 using JLD2
-using GLMakie
+using CairoMakie
 
 # Read the JLD2 file
 jldopen("/home/arnav/Parametric/Hera_outputs/Hera_Parametric_20261110.jld2", "r") do data
