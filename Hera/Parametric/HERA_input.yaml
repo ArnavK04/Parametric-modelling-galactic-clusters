@@ -96,8 +96,8 @@ sampling:
   scheme: SourcePlane
   verbose: true
   optimizer:
+    enabled: true
     Parametric:
-      enabled: true
       convergence:
         run_mode: random
         n_runs: 10000
