@@ -1,0 +1,49 @@
+observation:
+  modeler: LensFactory
+  lens: Hera
+  z_d: 0.507
+  reference: [0.0, 0.0]
+  pixel_scale: 0.5
+  FOV: [200, 200]
+
+
+cosmology:
+  H0: 72.0
+  Omega_m0: 0.24
+  Omega_r0: 0.00
+  Omega_w0: 0.76
+
+
+source:
+  from_file: true
+  source_file: HERA_images.txt
+
+
+lens_model:
+  method: MaxEnt
+  multiplane: false
+  total_lenses: 1
+  alpha: 1.0
+  lens1:
+    lens: MultiPixelLens
+    FOV: [200, 200]
+    pixel_scale: 0.5
+    default_map:
+      type: uniform
+      value: 0.5
+    
+
+sampling:
+  scheme: SourcePlane
+  verbose: true
+  optimizer:
+    enabled: true
+    MaxEnt:
+      n_runs: 200
+      save_runs: false
+      save_path: ./HERA_runs/
+      smoothing: 1.0
+      tolerance: 1E-3
+    LBFGS:
+      iterations: 100000
+      tolerance: 1e-6
