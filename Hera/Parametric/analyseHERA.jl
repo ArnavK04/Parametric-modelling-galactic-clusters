@@ -44,7 +44,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     flush(stdout)
 
     # Get the best fit lens model
-    best_lens, best_logL = LensModel.get_best_model(model, mcmc_chains = chains, mcmc_logL = logL)
+    best_lens, best_logL = LensModel.get_best_model(model, chains = chains, logL = logL)
     println("Best log-likelihood in source plane is : $(best_logL)")
 
     # Construct grid
