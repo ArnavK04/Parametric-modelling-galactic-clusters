@@ -66,7 +66,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     Ds_ = Cosmology.angular_diameter_distance(cosmo, 0.0, zs_)
     adis_9 = Dds_ / Ds_
 
-    cc_fig, cc_axes = Lenses.plot_image_plane(best_lens, x_grid, y_grid, adis_9, two_panel = true)        # saving critical curves
+    cc_fig, cc_axes = Lenses.plot_image_plane(best_lens, x_grid, y_grid, adis_9, two_panel = true, figure_size = (1200,600))        # saving critical curves
     xlims!(cc_axes[1], -X_lim_plot, X_lim_plot)
     ylims!(cc_axes[1], -Y_lim_plot, Y_lim_plot)
     xlims!(cc_axes[2], -X_lim_plot, X_lim_plot)
