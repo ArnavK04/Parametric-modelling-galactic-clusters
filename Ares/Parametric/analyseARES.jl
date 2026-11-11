@@ -4,7 +4,7 @@ using CairoMakie
 using LensFactory.LFUtils
 
 path = "/home/arnav/Parametric/Ares_outputs/"
-name = "Ares_Parametric_20261110"
+name = "Ares_Parametric_20261111"
 N_constraints = 484     # 242 total images
 println("N_constrain = $N_constraints")
 clustername = "Hera"
