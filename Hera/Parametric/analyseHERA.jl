@@ -8,13 +8,13 @@ name = "Hera_Parametric_20261110"
 N_constraints = 130     # 65 total images
 println("N_constrain = $N_constraints")
 clustername = "Hera"
-if clustername == "Hera"
+if clustername == "SMACS0723"
     X_lim_plot = 50.0
     Y_lim_plot = 50.0
     kappa_range = (0, 2.0)
 elseif clustername == "Hera"
-    X_lim_plot = 50.0
-    Y_lim_plot = 50.0
+    X_lim_plot = 70.0
+    Y_lim_plot = 70.0
     kappa_range = (0, 2.70)
 else
     X_lim_plot = 100.0
