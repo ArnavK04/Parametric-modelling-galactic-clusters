@@ -3,7 +3,7 @@ using JLD2
 using CairoMakie
 using LensFactory.LFUtils
 
-path = "/home/arnav/Parametric/Hera_outputs/MaxEnt"
+path = "/home/arnav/Parametric/Hera_outputs/MaxEnt/"
 name = "Hera_MaxEnt_20261113"
 N_constraints = 130     # 65 total images
 println("N_constrain = $N_constraints")
