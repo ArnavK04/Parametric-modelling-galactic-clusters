@@ -7,7 +7,7 @@ path = "/home/arnav/Parametric/Ares_outputs/"
 name = "Ares_Parametric_20261111"
 N_constraints = 484     # 242 total images
 println("N_constrain = $N_constraints")
-clustername = "Hera"
+clustername = "Ares"
 if clustername == "SMACS0723"
     X_lim_plot = 50.0
     Y_lim_plot = 50.0
@@ -136,17 +136,20 @@ jldopen("$(path)$(name).jld2", "r") do data
     println("Done plotting modelling results.")
     flush(stdout)
 
+    cosmo_best = LensModel.get_cosmology(data; burn_in=0.2, thin=1, with_errors=false)
+    LensModel.save_best_fits(data)
+
+    println("fits saved")
+
+    println("------------------------")
+    println("Everything else done. Plotting individual image systems now...")
+    flush(stdout)
     # plotting each individual image system predictions
     n_sources = length(model.source_config.sources)
     plot_sids = collect(1:n_sources)
     for sid in plot_sids
         LensModel.plot_best_model(model, chains, logL, two_panel = true, source=sid, plot_name="$(path)$(name)_best_model_$(sid).png")
     end
-
-    cosmo_best = LensModel.get_cosmology(data; burn_in=0.2, thin=1, with_errors=false)
-    LensModel.save_best_fits(data)
-
-    println("fits saved")
 
 end
 
