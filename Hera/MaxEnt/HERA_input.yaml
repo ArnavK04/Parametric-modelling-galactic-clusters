@@ -1,6 +1,6 @@
 observation:
   modeler: LensFactory
-  lens: Hera
+  lens: Hera_MaxEnt
   z_d: 0.507
   reference: [0.0, 0.0]
   pixel_scale: 0.5
