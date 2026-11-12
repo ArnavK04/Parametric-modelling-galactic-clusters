@@ -144,7 +144,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     end
 
     cosmo_best = LensModel.get_cosmology(data; burn_in=0.2, thin=1, with_errors=false)
-    LensModel.save_best_fits(data)
+    #LensModel.save_best_fits(data)
 
     println("fits saved")
 
