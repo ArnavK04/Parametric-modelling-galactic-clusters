@@ -1,9 +1,9 @@
 observation:
   modeler: LensFactory
-  lens: Hera_MaxEnt
+  lens: Hera_MaxEnt_OG
   z_d: 0.507
   reference: [0.0, 0.0]
-  pixel_scale: 0.25
+  pixel_scale: 0.5
   FOV: [200, 200]
 
 
@@ -29,8 +29,9 @@ lens_model:
     FOV: [200, 200]
     pixel_scale: 0.5
     default_map:
-      type: custom
-      file: /home/arnav/Parametric/Hera_outputs/Hera_Parametric_20261110/HeraParametric_maps.jld2
+      type: uniform
+      value: 0.5
+      #file: /home/arnav/Parametric/Hera_outputs/Hera_Parametric_20261110/HeraParametric_maps.jld2
     
 
 sampling:
