@@ -11,7 +11,7 @@ using LinearAlgebra
 
 include("/home/arnav/FreeFormModelling/FreeForm-modelling-LensFactory/utility_functions.jl")
 
-path = "/home/arnav/Parametric/Hera_outputs/Hera_MaxEnt_20261113/"
+path = "/home/arnav/Parametric/Hera_outputs/Hera_MaxEnt_20261113_0.25/"
 name = "Hera_MaxEnt_20261113"
 N_constraints = 130     # 65 total images
 println("N_constrain = $N_constraints")
@@ -23,6 +23,8 @@ if clustername == "SMACS0723"
 elseif clustername == "Hera"
     X_lim_plot = 70.0
     Y_lim_plot = 70.0
+    X_lim = 100.0
+    Y_lim = 100.0
     kappa_range = (0, 2.70)
 else
     X_lim_plot = 100.0
@@ -161,7 +163,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     save("$(path)$(name)_last_kappa_map.png", sd_fig)
 
     mag_plot = time()
-    last_mag9 = Lenses.get_magnification_image(last_lens, x_grid, y_grid, adis9)
+    last_mag9 = Lenses.get_magnification_image(last_lens, x_grid, y_grid, adis_9)
 
     mag_fig, mag_axes = Lenses.plot_sky(0.5*FOV[1], 0.5*FOV[2], figure_size = (500, 400))
     hm = heatmap!(mag_axes, x_grid[:,1], y_grid[1,:], last_mag9, colormap = :turbo, colorrange = (0,100))
@@ -191,11 +193,12 @@ jldopen("$(path)$(name).jld2", "r") do data
     ax3 = Axis(fig[1,3],
         title = "Relative map change",
         xlabel = "Run",
-        ylabel = "Change")
+        ylabel = "Change",
+        yscale = log10)
 
     lines!(ax1, n, logpost, label = "Log-posterior")
     lines!(ax1, n, loglike, label = "Log-likelihood")
-    lines!(ax1, n, logprior, label = "Log-prior", yscale = log10)
+    lines!(ax1, n, logprior, label = "Log-prior")
     axislegend(ax1, position = :rb)
 
     scatterlines!(ax2, n, iterations)
@@ -207,7 +210,7 @@ jldopen("$(path)$(name).jld2", "r") do data
 
     if clustername == "Hera" || clustername == "Ares"
 
-        res = x_grid[1,1] - x_grid[2:1]
+        res = abs(x_grid[1,1] - x_grid[2,1])
         order = 3
 
         gridx_fits, gridy_fits, kappa, gamma1, gamma2 = load_fitsfile(clustername)
@@ -218,7 +221,6 @@ jldopen("$(path)$(name).jld2", "r") do data
         kappa = Float64.(kappa)  # Ensure kappa is of type Float64
         gamma1 = Float64.(gamma1)  # Ensure gamma1 is of type Float64
         gamma2 = Float64.(gamma2)  # Ensure gamma2 is of type Float64
-        println("$(clustername) data loaded in ", time() - time_loadstart, " seconds.")
 
         flush(stdout)
         println("interpolating...")
@@ -230,7 +232,7 @@ jldopen("$(path)$(name).jld2", "r") do data
         gamma2_finefits, _, _ = refine_map(gamma2, gridx_fits, gridy_fits, X_lim, Y_lim, res, order)
         magstrt = time()
         println("interpolation done in ", magstrt - refinestart, " seconds.")
-        mag_finefits = @. 1.0 / ((1.0 - kappa_finefits)^2 - (gamma1_finefits^2 + gamma2_finefits^2))
+        mag_finefits = @. abs(1.0 / ((1.0 - kappa_finefits)^2 - (gamma1_finefits^2 + gamma2_finefits^2)))
         println("magnification calculated in ", time() - magstrt, " seconds.")
         flush(stdout)
 
