@@ -2,7 +2,7 @@ using LensFactory
 using JLD2
 using CairoMakie
 using LensFactory.LFUtils
-using LaTexStrings
+using LaTeXStrings
 
 path = "/home/arnav/Parametric/Hera_outputs/MaxEnt/"
 name = "Hera_MaxEnt_20261113"
