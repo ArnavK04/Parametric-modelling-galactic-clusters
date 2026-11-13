@@ -1,10 +1,10 @@
 #!/bin/bash
 #PBS -q workq
-#PBS -N pm_HERA_test0MaxEnttol1em4
+#PBS -N pm_HERA_test0MaxEntOG
 #PBS -l nodes=comp1:ppn=1
 #PBS -V
 
-LOGNAME="HERA_test0MaxEntretol_1em4"
+LOGNAME="HERA_test0MaxEntOG"
 
 exec > "/home/arnav/Parametric/logfiles/logfiles/${LOGNAME}.log" 2> "/home/arnav/Parametric/logfiles/errfiles/${LOGNAME}.err"
 
