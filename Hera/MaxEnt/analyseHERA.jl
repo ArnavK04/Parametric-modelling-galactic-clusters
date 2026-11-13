@@ -127,6 +127,8 @@ jldopen("$(path)$(name).jld2", "r") do data
     # Common quantities
     FOV = model.observation.FOV
     pixel_scale = model.observation.pixel_scale
+    X_lim = 0.5*FOV[1]
+    Y_lim = 0.5*FOV[2]
     param_ref = Dict(p.key => p.refer for p in model.parameters)
     cosmo     = LensModel.LensModelUtils.current_cosmology(model, param_ref)
     zs_ = 9
