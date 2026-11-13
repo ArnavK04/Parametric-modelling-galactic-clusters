@@ -157,7 +157,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     best_mag9 = Lenses.get_magnification_image(best_lens, x_grid, y_grid, adis_9)
 
     mag_fig, mag_axes = Lenses.plot_sky(0.5*FOV[1], 0.5*FOV[2], figure_size = (500, 400))
-    hm = heatmap!(mag_axes, x_grid[:,1], y_grid[1,:], best_mag9, colormap = :turbo, colorrange = (0,100))
+    hm = heatmap!(mag_axes, x_grid[:,1], y_grid[1,:], abs.(best_mag9), colormap = :turbo, colorrange = (0,100))
     cb = Colorbar(mag_fig[1,2], hm; label = L"|\mu|")
     xlims!(mag_axes, -X_lim_plot, X_lim_plot)
     ylims!(mag_axes, -Y_lim_plot, Y_lim_plot)
@@ -190,7 +190,7 @@ jldopen("$(path)$(name).jld2", "r") do data
         gamma2_finefits, _, _ = refine_map(gamma2, gridx_fits, gridy_fits, X_lim, Y_lim, res, order)
         magstrt = time()
         println("interpolation done in ", magstrt - refinestart, " seconds.")
-        mag_finefits = @. abs(1.0 / ((1.0 - kappa_finefits)^2 - (gamma1_finefits^2 + gamma2_finefits^2)))
+        mag_finefits = @. 1.0 / ((1.0 - kappa_finefits)^2 - (gamma1_finefits^2 + gamma2_finefits^2))
         println("magnification calculated in ", time() - magstrt, " seconds.")
         flush(stdout)
 
