@@ -38,7 +38,7 @@ function load_fitsfile(filename::String)
 
     local gridx_fits, gridy_fits, kappa, gamma1, gamma2
 
-    FITS("../$(filename)_data/kappa_z9_0.fits") do f
+    FITS("/home/arnav/FreeFormModelling/$(filename)_data/kappa_z9_0.fits") do f
         hdr = read_header(f[1])
         kappa = read(f[1])
 
@@ -57,11 +57,11 @@ function load_fitsfile(filename::String)
         gridx_fits, gridy_fits = Lenses.get_meshgrid(X_max, Y_max, pixel_scale)
     end
 
-    FITS("../$(filename)_data/gammax_z9_0.fits") do f
+    FITS("/home/arnav/FreeFormModelling/$(filename)_data/gammax_z9_0.fits") do f
         gamma1 = read(f[1])
     end
 
-    FITS("../$(filename)_data/gammay_z9_0.fits") do f
+    FITS("/home/arnav/FreeFormModelling/$(filename)_data/gammay_z9_0.fits") do f
         gamma2 = read(f[1])
     end
 
@@ -111,6 +111,14 @@ jldopen("$(path)$(name).jld2", "r") do data
     #=best_lens, best_F = LensModel.get_best_model("$(path)$(name).jld2", run = :best)
     println("Best target function is : $(best_F)")=#
 
+    println("Calculating best fit rms...")
+    flush(stdout)
+    t0 = time()
+    LensModel.get_best_fit_rms(model, last_kappa, method = :adaptive)
+    println("Time taken to calculate best fit rms: $(time() - t0) seconds")
+    println("----------------------------------------")
+    flush(stdout)
+
     last_lens, last_F = LensModel.get_best_model("$(path)$(name).jld2", run = :last)
     println("Last target function is : $(last_F)")
 
@@ -136,7 +144,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     xlims!(cc_axes[2], -X_lim_plot, X_lim_plot)
     ylims!(cc_axes[2], -Y_lim_plot, Y_lim_plot)
     save("$(path)$(name)_last_critical_curves.png", cc_fig)
-    println("Critical curves plotted in $(time() - crt_curve_plot) sec")
+    println("Critical curves plotted in $(time() - crt_curv_plot) sec")
 
     sd_fig, sd_axes = Lenses.plot_sky(0.5*FOV[1], 0.5*FOV[2], figure_size = (500, 400))
     hm = heatmap!(sd_axes, x_grid[:,1], y_grid[1,:], last_prior9, colormap = :turbo, colorrange = kappa_range)
@@ -243,13 +251,6 @@ jldopen("$(path)$(name).jld2", "r") do data
     end
 
     println("plots saved.")
-    println("Calculating best fit rms...")
-    flush(stdout)
-    t0 = time()
-    LensModel.get_best_fit_rms(model, last_kappa)
-    println("Time taken to calculate best fit rms: $(time() - t0) seconds")
-    println("----------------------------------------")
-    flush(stdout)
 
     # plots for best model
 

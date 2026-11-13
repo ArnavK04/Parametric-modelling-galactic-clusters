@@ -2,6 +2,12 @@ using LensFactory
 using JLD2
 using CairoMakie
 using LensFactory.LFUtils
+using LensFactory.Constants
+using LensFactory.LensModel.LensModelIO
+using LaTeXStrings
+using Interpolations
+using FITSIO
+using LinearAlgebra
 
 path = "/home/arnav/Parametric/Hera_outputs/"
 name = "Hera_Parametric_20261110"
@@ -21,6 +27,68 @@ else
     Y_lim_plot = 100.0
     kappa_range = (0, 3.0)
 end
+kappa_dev_range = (-2.0, 2.0)
+mag_dev_range = (-4.0, 4.0)
+
+function load_fitsfile(filename::String)
+
+    local gridx_fits, gridy_fits, kappa, gamma1, gamma2
+
+    FITS("/home/arnav/FreeFormModelling/$(filename)_data/kappa_z9_0.fits") do f
+        hdr = read_header(f[1])
+        kappa = read(f[1])
+
+        NX = hdr["NAXIS1"]
+        NY = hdr["NAXIS2"]
+
+        pixel_scale = hdr["CDELT1"] * 3600.0  # Convert degrees to arcseconds
+        CRVAL1 = hdr["CRVAL1"] * 3600.0
+        CRVAL2 = hdr["CRVAL2"] * 3600.0
+        CRPIX1 = hdr["CRPIX1"]
+        CRPIX2 = hdr["CRPIX2"]
+
+        X_max = (NX - CRPIX1) * pixel_scale + CRVAL1
+        Y_max = (NY - CRPIX2) * pixel_scale + CRVAL2
+
+        gridx_fits, gridy_fits = Lenses.get_meshgrid(X_max, Y_max, pixel_scale)
+    end
+
+    FITS("/home/arnav/FreeFormModelling/$(filename)_data/gammax_z9_0.fits") do f
+        gamma1 = read(f[1])
+    end
+
+    FITS("/home/arnav/FreeFormModelling/$(filename)_data/gammay_z9_0.fits") do f
+        gamma2 = read(f[1])
+    end
+
+    return gridx_fits[2:end, 2:end], gridy_fits[2:end, 2:end], kappa, gamma1, gamma2    # because the fits arrays are 2048, but grid_fits are 2049
+end
+
+function refine_map(map_coarse::M, gridx::M, gridy::M, new_grid_limx::T, new_grid_limy::T, resolution::T, order::Int) where {T <:RV, M <: ROA}
+
+    x_nodes = range(gridx[1, 1], stop=gridx[end, 1], length=size(gridx, 2))
+    y_nodes = range(gridy[1, 1], stop=gridy[1, end], length=size(gridy, 1))
+
+    if order == 1
+        itp = interpolate(map_coarse, BSpline(Linear()))
+    elseif order == 2
+        itp = interpolate(map_coarse, BSpline(Quadratic(Line(OnGrid()))))
+    elseif order == 3
+        itp = interpolate(map_coarse, BSpline(Cubic(Line(OnGrid()))))
+    else
+        error("Unsupported interpolation order $order. upto cubic(3) is allowed.")
+    end
+    
+    itp = scale(itp, x_nodes, y_nodes)
+
+    x_fine, y_fine = Lenses.get_meshgrid(new_grid_limx, new_grid_limy, resolution)
+
+    map_fine = itp.(x_fine, y_fine)
+
+    return map_fine, x_fine, y_fine
+
+end
+
 
 time_start = time()
 # Read the JLD2 file
