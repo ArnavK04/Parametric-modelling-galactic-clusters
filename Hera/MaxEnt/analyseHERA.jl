@@ -11,7 +11,7 @@ using LinearAlgebra
 
 include("/home/arnav/FreeFormModelling/FreeForm-modelling-LensFactory/utility_functions.jl")
 
-path = "/home/arnav/Parametric/Hera_outputs/Hera_MaxEnt_20261113_0.25/"
+path = "/home/arnav/Parametric/Hera_outputs/Hera_MaxEnt_20261113/"
 name = "Hera_MaxEnt_20261113"
 N_constraints = 130     # 65 total images
 println("N_constrain = $N_constraints")
