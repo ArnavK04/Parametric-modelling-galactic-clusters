@@ -3,8 +3,8 @@ using JLD2
 using CairoMakie
 using LensFactory.LFUtils
 
-path = "/home/arnav/Parametric/Hera_outputs/MaxEnt/"
-name = "Hera_MaxEnt_20261113"
+path = "/home/arnav/Parametric/Hera_outputs/"
+name = "Hera_Parametric_20261110"
 N_constraints = 130     # 65 total images
 println("N_constrain = $N_constraints")
 clustername = "Hera"
@@ -13,8 +13,8 @@ if clustername == "SMACS0723"
     Y_lim_plot = 50.0
     kappa_range = (0, 2.0)
 elseif clustername == "Hera"
-    X_lim_plot = 70.0
-    Y_lim_plot = 70.0
+    X_lim_plot = 50.0
+    Y_lim_plot = 50.0
     kappa_range = (0, 2.70)
 else
     X_lim_plot = 100.0
@@ -44,7 +44,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     flush(stdout)
 
     # Get the best fit lens model
-    best_lens, best_logL = LensModel.get_best_model(model, chains, logL)
+    best_lens, best_logL = LensModel.get_best_model(model, chains = chains, mcmc_logL = logL)
     println("Best log-likelihood in source plane is : $(best_logL)")
 
     # Construct grid
@@ -66,7 +66,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     Ds_ = Cosmology.angular_diameter_distance(cosmo, 0.0, zs_)
     adis_9 = Dds_ / Ds_
 
-    cc_fig, cc_axes = Lenses.plot_image_plane(best_lens, x_grid, y_grid, adis_9, two_panel = true, figure_size = (1200,600))        # saving critical curves
+    cc_fig, cc_axes = Lenses.plot_image_plane(best_lens, x_grid, y_grid, adis_9, two_panel = true)        # saving critical curves
     xlims!(cc_axes[1], -X_lim_plot, X_lim_plot)
     ylims!(cc_axes[1], -Y_lim_plot, Y_lim_plot)
     xlims!(cc_axes[2], -X_lim_plot, X_lim_plot)
@@ -144,7 +144,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     end
 
     cosmo_best = LensModel.get_cosmology(data; burn_in=0.2, thin=1, with_errors=false)
-    #LensModel.save_best_fits(data)
+    LensModel.save_best_fits(data)
 
     println("fits saved")
 
