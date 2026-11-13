@@ -89,7 +89,6 @@ function refine_map(map_coarse::M, gridx::M, gridy::M, new_grid_limx::T, new_gri
 
 end
 
-
 time_start = time()
 # Read the JLD2 file
 jldopen("$(path)$(name).jld2", "r") do data
@@ -141,15 +140,74 @@ jldopen("$(path)$(name).jld2", "r") do data
     ylims!(cc_axes[2], -Y_lim_plot, Y_lim_plot)
     save("$(path)$(name)_critical_curves.png", cc_fig)
 
-    sd_fig, sd_axes = Lenses.plot_surface_density(best_lens, x_grid, y_grid, adis_9, unit = :convergence, heatmap_kws = (colormap=:turbo, colorrange=kappa_range))
-    xlims!(sd_axes, -X_lim_plot, X_lim_plot)
-    ylims!(sd_axes, -Y_lim_plot, Y_lim_plot)
-    save("$(path)$(name)_kappa_map.png", sd_fig)   
+    kappa_plot = time()
+    best_kappa9, best_gamma19, best_gamma29 = Lenses.get_kappa_gamma(best_lens, x_grid, y_grid, adis9)
 
-    mg_fig, mg_axes = Lenses.plot_magnification_map(best_lens, x_grid, y_grid, adis_9, heatmap_kws = (colormap=:turbo, colorrange=(0, 100)))
-    xlims!(mg_axes, -X_lim_plot, X_lim_plot)
-    ylims!(mg_axes, -Y_lim_plot, Y_lim_plot)
-    save("$(path)$(name)_magnification_map.png", mg_fig)
+    kappa_fig, kappa_axes = Lenses.plot_sky(0.5*FOV[1], 0.5*FOV[2], figure_size = (500, 400))
+    hm = heatmap!(kappa_axes, x_grid[:,1], y_grid[1,:], best_kappa9, colormap = :turbo, colorrange = (0,100))
+    cb = Colorbar(kappa_fig[1,2], hm; label = L"\kappa")
+    xlims!(kappa_axes, -X_lim_plot, X_lim_plot)
+    ylims!(kappa_axes, -Y_lim_plot, Y_lim_plot)
+    save("$(path)$(name)_kappa_map.png", kappa_fig) 
+    println("kappa maps plotted in $(time() - kappa_plot) sec")
+
+    mag_plot = time()
+    best_mag9 = Lenses.get_magnification_image(best_lens, x_grid, y_grid, adis9)
+
+    mag_fig, mag_axes = Lenses.plot_sky(0.5*FOV[1], 0.5*FOV[2], figure_size = (500, 400))
+    hm = heatmap!(mag_axes, x_grid[:,1], y_grid[1,:], best_mag9, colormap = :turbo, colorrange = (0,100))
+    cb = Colorbar(mag_fig[1,2], hm; label = L"|\mu|")
+    xlims!(mag_axes, -X_lim_plot, X_lim_plot)
+    ylims!(mag_axes, -Y_lim_plot, Y_lim_plot)
+    save("$(path)$(name)_magnification_map.png", mag_fig)
+    println("magnification maps plotted in $(time() - mag_plot) sec")
+
+    # plot deviation from the truth
+
+    if clustername == "Hera" || clustername == "Ares"
+
+        res = x_grid[1,1] - x_grid[2:1]
+        order = 3
+
+        gridx_fits, gridy_fits, kappa, gamma1, gamma2 = load_fitsfile(clustername)
+        Hera_offset = 0.0      # Hera image coordinates were offset by 12 in x direction, so we need to correct for that
+        if clustername == "Hera"
+            gridx_fits .+= Hera_offset
+        end
+        kappa = Float64.(kappa)  # Ensure kappa is of type Float64
+        gamma1 = Float64.(gamma1)  # Ensure gamma1 is of type Float64
+        gamma2 = Float64.(gamma2)  # Ensure gamma2 is of type Float64
+        println("$(clustername) data loaded in ", time() - time_loadstart, " seconds.")
+
+        flush(stdout)
+        println("interpolating...")
+        # interpolate to a particular grid
+
+        refinestart = time()
+        kappa_finefits, x_fine, y_fine = refine_map(kappa, gridx_fits, gridy_fits, X_lim, Y_lim, res, order)
+        gamma1_finefits, _, _ = refine_map(gamma1, gridx_fits, gridy_fits, X_lim, Y_lim, res, order)
+        gamma2_finefits, _, _ = refine_map(gamma2, gridx_fits, gridy_fits, X_lim, Y_lim, res, order)
+        magstrt = time()
+        println("interpolation done in ", magstrt - refinestart, " seconds.")
+        mag_finefits = @. 1.0 / ((1.0 - kappa_finefits)^2 - (gamma1_finefits^2 + gamma2_finefits^2))
+        println("magnification calculated in ", time() - magstrt, " seconds.")
+        flush(stdout)
+
+        sd_fig, sd_axes = Lenses.plot_sky(0.5*FOV[1], 0.5*FOV[2], figure_size = (500, 400))
+        hm = heatmap!(sd_axes, x_grid[:,1], y_grid[1,:], (best_kappa9 .- kappa_finefits)./kappa_finefits, colormap = :BrBG, colorrange = kappa_dev_range)
+        cb = Colorbar(sd_fig[1,2], hm; label = L"\delta \kappa/\kappa_{truth}")
+        xlims!(sd_axes, -X_lim_plot, X_lim_plot)
+        ylims!(sd_axes, -Y_lim_plot, Y_lim_plot)
+        save("$(path)$(name)_best_kappareldev_map.png", sd_fig)
+
+        mag_fig, mag_axes = Lenses.plot_sky(0.5*FOV[1], 0.5*FOV[2], figure_size = (500, 400))
+        hm = heatmap!(mag_axes, x_grid[:,1], y_grid[1,:], (best_mag9 .- mag_finefits)./mag_finefits, colormap = :BrBG, colorrange = mag_dev_range)
+        cb = Colorbar(mag_fig[1,2], hm; label = L"\delta \mu/\mu_{truth}")
+        xlims!(mag_axes, -X_lim_plot, X_lim_plot)
+        ylims!(mag_axes, -Y_lim_plot, Y_lim_plot)
+        save("$(path)$(name)_best_magreldev_map.png", mag_fig)
+
+    end
 
     logL_img, β_mod_s, θ_mod_s, all_converged = LensModel.Likelihood.logL_imageplane_fast(model, best_lens, adis, ax_all, ay_all, A_all)
     println("Log-likelihood for the best fit model in image plane is: $(logL_img)")

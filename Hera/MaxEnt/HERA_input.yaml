@@ -3,7 +3,7 @@ observation:
   lens: Hera_MaxEnt
   z_d: 0.507
   reference: [0.0, 0.0]
-  pixel_scale: 0.5
+  pixel_scale: 0.25
   FOV: [200, 200]
 
 
@@ -43,7 +43,7 @@ sampling:
       save_runs: false
       save_path: /home/arnav/Parametric/Hera_outputs/MaxEnt
       smoothing: 1.0
-      tolerance: 1E-4
+      tolerance: 1E-3
     LBFGS:
       iterations: 100000
       tolerance: 1e-6
