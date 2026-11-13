@@ -32,8 +32,8 @@ jldopen("$(path)$(name).jld2", "r") do data
     logL = data["logL"]
 	
     # Get the best fit lens model
-    """best_lens, best_F = LensModel.get_best_model("$(path)$(name).jld2", run = :best)
-    println("Best target function is : $(best_F)")"""
+    #=best_lens, best_F = LensModel.get_best_model("$(path)$(name).jld2", run = :best)
+    println("Best target function is : $(best_F)")=#
 
     last_lens, last_F = LensModel.get_best_model("$(path)$(name).jld2", run = :last)
     println("Last target function is : $(last_F)")
@@ -80,7 +80,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     n_sources = length(model.source_config.sources)
     plot_sids = collect(1:n_sources)
     for sid in plot_sids
-        LensModel.plot_best_model(model, optimizer; two_panel = true, source=sid, plot_name="$(path)$(name)_best_model_$(sid).png")
+        LensModel.plot_best_model(model, optimizer; two_panel = true, source=sid, plot_name="$(path)$(name)_last_model_$(sid).png")
     end
 end
 
