@@ -30,7 +30,7 @@ time_start = time()
 jldopen("$(path)$(name).jld2", "r") do data
     # Read data
     model = data["model"]
-    results = data["optimizer"]
+    optimizer = data["optimizer"]
     chains = data["chains"]
     logL = data["logL"]
     last_kappa = data["optimizer"][:kappa]
@@ -53,7 +53,6 @@ jldopen("$(path)$(name).jld2", "r") do data
     cosmo     = LensModel.LensModelUtils.current_cosmology(model, param_ref)
     zs_ = 9
     zd_ = model.observation.z_d
-    cosmo = Cosmology.init_cosmology()      # default cosmo
     Dds_ = Cosmology.angular_diameter_distance(cosmo, zd_, zs_)
     Ds_ = Cosmology.angular_diameter_distance(cosmo, 0.0, zs_)
     adis_9 = Dds_ / Ds_
@@ -71,14 +70,14 @@ jldopen("$(path)$(name).jld2", "r") do data
 
     sd_fig, sd_axes = Lenses.plot_sky(0.5*FOV[1], 0.5*FOV[2], figure_size = (500, 400))
     hm = heatmap!(sd_axes, x_grid[:,1], y_grid[1,:], last_prior9, colormap = :turbo, colorrange = kappa_range)
-    cb = Colorbar(fig[1,2], hm; label = L"κ_{prior}")
+    cb = Colorbar(sd_fig[1,2], hm; label = L"κ_{prior}")
     xlims!(sd_axes, -X_lim_plot, X_lim_plot)
     ylims!(sd_axes, -Y_lim_plot, Y_lim_plot)
     save("$(path)$(name)_last_prior_map.png", sd_fig)
     
     sd_fig, sd_axes = Lenses.plot_sky(0.5*FOV[1], 0.5*FOV[2], figure_size = (500, 400))
     hm = heatmap!(sd_axes, x_grid[:,1], y_grid[1,:], last_kappa9, colormap = :turbo, colorrange = kappa_range)
-    cb = Colorbar(fig[1,2], hm; label = "κ")
+    cb = Colorbar(sd_fig[1,2], hm; label = "κ")
     xlims!(sd_axes, -X_lim_plot, X_lim_plot)
     ylims!(sd_axes, -Y_lim_plot, Y_lim_plot)
     save("$(path)$(name)_last_kappa_map.png", sd_fig)
