@@ -9,7 +9,7 @@ using Interpolations
 using FITSIO
 using LinearAlgebra
 
-path = "/home/arnav/Parametric/Hera_outputs/"
+path = "/home/arnav/Parametric/Hera_outputs/Hera_Parametric_20261110/"
 name = "Hera_Parametric_20261110"
 N_constraints = 130     # 65 total images
 println("N_constrain = $N_constraints")
