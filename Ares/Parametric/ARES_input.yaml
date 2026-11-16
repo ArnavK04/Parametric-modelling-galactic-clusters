@@ -4,13 +4,13 @@ observation:
   z_d: 0.5
   reference: [0.0, 0.0]
   pixel_scale: 0.05
-  FOV: [200, 200]
+  FOV: [240, 240]
 
 cosmology:
-  H0: 70.4
-  Omega_m0: 0.272
-  Omega_r0: 0.000
-  Omega_w0: 0.728
+  H0: 72.0
+  Omega_m0: 0.24
+  Omega_r0: 0.00
+  Omega_w0: 0.76
 
 source:
   from_file: true
@@ -59,7 +59,7 @@ lens_model:
     v_d:
       value: 200.0
       range: [100.0, 400.0]
-    x_s: 0.0
+    x_s: 0.05
     x_t:
       value: 30.0
       range: [1.0, 150.0]
@@ -76,7 +76,7 @@ lens_model:
     v_d:
       value: 200.0
       range: [100.0, 400.0]
-    x_s: 0.0
+    x_s: 0.05
     x_t:
       value: 30.0
       range: [1.0, 100.0]
@@ -93,7 +93,7 @@ lens_model:
     v_d:
       value: 200.0
       range: [50.0, 400.0]
-    x_s: 0.0
+    x_s: 0.05
     x_t:
       value: 30.0
       range: [1.0, 100.0]
@@ -112,7 +112,7 @@ lens_model:
       ref_sigma: 
         value: 100.0
         range: [50.0, 200.0]
-      ref_core: 0.0
+      ref_core: 0.05
       ref_cut: 
         value: 30.0
         range: [1.0, 100.0]
