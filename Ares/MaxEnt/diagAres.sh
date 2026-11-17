@@ -1,10 +1,10 @@
 #!/bin/bash
 #PBS -q workq
-#PBS -N diagARES_Parametric_20261111
+#PBS -N diagARES_MaxEnt_20261117
 #PBS -l nodes=comp1:ppn=1
 #PBS -V
 
-LOGNAME="Ares_Parametric_20261111_analyse"
+LOGNAME="Ares_MaxEnt_20261117_analyse"
 
 exec > "/home/arnav/Parametric/logfiles/logfiles/${LOGNAME}.log" 2> "/home/arnav/Parametric/logfiles/errfiles/${LOGNAME}.err"
 
