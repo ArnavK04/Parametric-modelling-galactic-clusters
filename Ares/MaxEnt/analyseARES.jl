@@ -11,9 +11,9 @@ using LinearAlgebra
 
 include("/home/arnav/FreeFormModelling/FreeForm-modelling-LensFactory/utility_functions.jl")
 
-path = "/home/arnav/Parametric/Ares_outputs/Ares_MaxEnt_20261117/"
-name = "Ares_MaxEnt_20261117"
-N_constraints = 130     # 65 total images
+path = "/home/arnav/Parametric/Ares_outputs/Ares_MaxEnt_OG_20261117/"
+name = "Ares_MaxEnt_OG_20261117"
+N_constraints = 484     # 242 total images
 println("N_constrain = $N_constraints")
 clustername = "Ares"
 if clustername == "SMACS0723"
