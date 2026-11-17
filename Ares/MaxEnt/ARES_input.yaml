@@ -31,7 +31,7 @@ lens_model:
     default_map:
       type: custom
       #value: 0.5
-      file: /home/arnav/Parametric/Ares_outputs/Ares_Parametric_20261111/AresParametric_maps.jld2
+      file: /home/arnav/Parametric/Ares_outputs/Ares_Parametric_20261116/AresParametric_maps.jld2
     
 
 sampling:
