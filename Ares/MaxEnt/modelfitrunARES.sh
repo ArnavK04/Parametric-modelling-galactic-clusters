@@ -1,10 +1,10 @@
 #!/bin/bash
 #PBS -q workq
-#PBS -N pm_ARES_test0MaxEnt
+#PBS -N pm_ARES_test0MaxEnt_OG
 #PBS -l nodes=comp1:ppn=1
 #PBS -V
 
-LOGNAME="ARES_test0MaxEnt"
+LOGNAME="ARES_test0MaxEnt_OG"
 
 exec > "/home/arnav/Parametric/logfiles/logfiles/${LOGNAME}.log" 2> "/home/arnav/Parametric/logfiles/errfiles/${LOGNAME}.err"
 

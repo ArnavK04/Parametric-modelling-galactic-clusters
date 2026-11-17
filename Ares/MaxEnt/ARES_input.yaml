@@ -1,6 +1,6 @@
 observation:
   modeler: LensFactory
-  lens: Ares_MaxEnt
+  lens: Ares_MaxEnt_OG
   z_d: 0.5
   reference: [0.0, 0.0]
   pixel_scale: 0.5
@@ -29,9 +29,9 @@ lens_model:
     FOV: [240, 240]
     pixel_scale: 0.5
     default_map:
-      type: custom
-      #value: 0.5
-      file: /home/arnav/Parametric/Ares_outputs/Ares_Parametric_20261116/AresParametric_maps.jld2
+      type: uniform
+      value: 0.5
+      #file: /home/arnav/Parametric/Ares_outputs/Ares_Parametric_20261116/AresParametric_maps.jld2
     
 
 sampling:
