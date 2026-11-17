@@ -4,7 +4,7 @@ observation:
   z_d: 0.5
   reference: [0.0, 0.0]
   pixel_scale: 0.5
-  FOV: [200, 200]
+  FOV: [240, 240]
 
 
 cosmology:
