@@ -97,7 +97,7 @@ function refine_map(map_coarse::M, gridx::M, gridy::M, new_grid_limx::T, new_gri
 
 end
 
-function get_time_delays_all(model, lens, adis, x_grid, y_grid, cosmo; match_tol = 1.0)
+function get_time_delays_all(model, lens, adis, x_grid, y_grid, cosmo; match_tol = 2.0)
 
     zd = model.observation.z_d
     Dd = Cosmology.angular_diameter_distance(cosmo, 0.0, zd)
@@ -127,6 +127,8 @@ function get_time_delays_all(model, lens, adis, x_grid, y_grid, cosmo; match_tol
                     if d[k] <= match_tol        # also false if everything is Inf
                         delays[j] = t[k]
                         used[k] = true          # only consume it on a real match
+                    else
+                        @warn "No match found for knot $j of source $sid (min distance = $(d[k]))"
                     end
                 end
 
