@@ -180,7 +180,7 @@ jldopen("$(path)$(name).jld2", "r") do data
     Y_lim = 0.5*FOV[2]
     param_ref = Dict(p.key => p.refer for p in model.parameters)
     cosmo     = LensModel.LensModelUtils.current_cosmology(model, param_ref)
-    adis      = LensModelUtils.adis_current(model, param_ref, cosmo)
+    adis      = LensModel.LensModelUtils.adis_current(model, param_ref, cosmo)
     zs_ = 9
     zd_ = model.observation.z_d
     Dds_ = Cosmology.angular_diameter_distance(cosmo, zd_, zs_)
