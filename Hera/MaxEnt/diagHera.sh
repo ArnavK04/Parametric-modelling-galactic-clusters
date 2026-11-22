@@ -4,7 +4,7 @@
 #PBS -l nodes=comp1:ppn=8
 #PBS -V
 
-LOGNAME="Hera_MaxEnt_20261114OG_analyse"
+LOGNAME="Hera_MaxEnt_20261113_analyse"
 
 exec > "/home/arnav/Parametric/logfiles/logfiles/${LOGNAME}.log" 2> "/home/arnav/Parametric/logfiles/errfiles/${LOGNAME}.err"
 
