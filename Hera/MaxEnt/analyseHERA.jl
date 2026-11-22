@@ -318,11 +318,11 @@ jldopen("$(path)$(name).jld2", "r") do data
         end
 
         fig1 = Figure(size=(500,400))
-        ax1 = Axis(fig1[1,1], xlabel = "r (\")", ylabel = L"\kappa", xscale = log10, yscale = log10)
+        ax1 = Axis(fig1[1,1], xlabel = "r (\")", ylabel = L"\kappa", xscale = log10, yscale = log10, xgridvisible = true, ygridvisible = true)
         lines!(ax1, centers1, profile1)
         save("$(path)$(name)_last_radialprofile1.png", fig1)
         fig2 = Figure(size=(500,400))
-        ax2 = Axis(fig2[1,1], xlabel = L"r (\")", ylabel = L"\kappa", xscale = log10, yscale = log10)
+        ax2 = Axis(fig2[1,1], xlabel = L"r (\")", ylabel = L"\kappa", xscale = log10, yscale = log10, xgridvisible = true, ygridvisible = true)
         lines!(ax2, centers2, profile2)
         save("$(path)$(name)_last_radialprofile2.png", fig2)
 
