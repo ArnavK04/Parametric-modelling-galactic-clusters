@@ -16,6 +16,8 @@ name = "Ares_MaxEnt_OG_20261117"
 N_constraints = 484     # 242 total images
 println("N_constrain = $N_constraints")
 clustername = "Ares"
+plot_individual_src = false
+
 if clustername == "SMACS0723"
     X_lim_plot = 50.0
     Y_lim_plot = 50.0
@@ -101,6 +103,51 @@ function refine_map(map_coarse::M, gridx::M, gridy::M, new_grid_limx::T, new_gri
 
     return map_fine, x_fine, y_fine
 
+end
+
+function get_time_delays_all(model, lens, adis, x_grid, y_grid, cosmo; match_tol = 1.0)
+
+    zd = model.observation.z_d
+    Dd = Cosmology.angular_diameter_distance(cosmo, 0.0, zd)
+
+    all_delays = Vector{Vector{Float64}}()      # one entry per knot, in observed-image order
+
+    for (sid, src) in enumerate(model.source_config.sources)
+        adis_value = adis[sid]
+
+        for knot in src.knots
+            β_knot = LensModel._get_source_position(lens, knot, adis_value)
+            images = Lenses.get_image(lens, x_grid, y_grid, adis_value, β_knot)
+
+            delays = fill(NaN, length(knot.x))
+
+            if !isempty(images)
+                imx = [p[1] for p in images]
+                imy = [p[2] for p in images]
+                t = Lenses.get_time_delay(lens, imx, imy, adis_value, zd, Dd, β_knot)
+
+                used = falses(length(imx))      # predicted images already matched
+
+                for j in eachindex(knot.x)
+                    d = hypot.(imx .- knot.x[j], imy .- knot.y[j])
+                    d[used] .= Inf              # exclude already-matched images
+                    k = argmin(d)
+                    if d[k] <= match_tol        # also false if everything is Inf
+                        delays[j] = t[k]
+                        used[k] = true          # only consume it on a real match
+                    end
+                end
+
+                # relative to the earliest-arriving matched image
+                valid = filter(!isnan, delays)
+                isempty(valid) || (delays .-= minimum(valid))
+            end
+
+            push!(all_delays, delays)
+        end
+    end
+
+    return all_delays
 end
 
 time_start = time()
@@ -259,7 +306,49 @@ jldopen("$(path)$(name).jld2", "r") do data
         xlims!(mag_axes, -X_lim_plot, X_lim_plot)
         ylims!(mag_axes, -Y_lim_plot, Y_lim_plot)
         save("$(path)$(name)_last_magreldev_map.png", mag_fig)
+        maghist_fig = Figure(size=(500,400))
+        maghist_ax = Axis(maghist_fig[1,1], xlabel = L"\delta \mu/\mu_{truth}", ylabel = "PDF")
+        hist!(maghist_ax, (last_mag9 .- mag_finefits)./mag_finefits, normalization = :pdf)
+        save("$(path)$(name)_last_magreldev_hist.png", maghist_fig)
 
+        kappahist_fig = Figure(size=(500,400))
+        kappahist_ax = Axis(kappahist_fig[1,1], xlabel = L"\delta \kappa/\kappa_{truth}", ylabel = "PDF")
+        hist!(kappahist_ax, (last_kappa9 .- kappa_finefits)./kappa_finefits, normalization = :pdf)
+        save("$(path)$(name)_last_kappareldev_hist.png", kappahist_fig)
+
+        # plot radial profile
+        if clustername == "Ares"
+            centers1, profile1, edges1 = Lenses.get_radial_profile(last_kappa9, x_grid, y_grid, origin = (-20.0, -32.0))    
+            centers2, profile2, edges2 = Lenses.get_radial_profile(last_kappa9, x_grid, y_grid, origin = (40.0, 40.0))
+        elseif clustername == "Hera"
+            centers1, profile1, edges1 = Lenses.get_radial_profile(last_kappa9, x_grid, y_grid, origin = (0.0, 0.0))    
+            centers2, profile2, edges2 = Lenses.get_radial_profile(last_kappa9, x_grid, y_grid, origin = (-19.5408, 2.3782))
+        end
+
+        fig1 = Figure(size=(500,400))
+        ax1 = Axis(fig1[1,1], xlabel = "r (\")", ylabel = L"\kappa")
+        lines!(ax1, centers1, profile1)
+        save("$(path)$(name)_last_radialprofile1.png", fig1)
+        fig2 = Figure(size=(500,400))
+        ax2 = Axis(fig2[1,1], xlabel = "r (\")", ylabel = L"\kappa")
+        lines!(ax2, centers2, profile2)
+        save("$(path)$(name)_last_radialprofile2.png", fig2)
+
+        time_delays = get_time_delays_all(model, last_lens, adis, x_grid, y_grid, cosmo)
+        
+        #save all important arrays.
+        jldsave("$(path)$(name)_finalarrays.jld2";
+            kappa9 = last_kappa9,
+            prior9 = last_prior9,
+            mag9 = last_mag9,
+            kappa_finefits = kappa_finefits,
+            mag_finefits = mag_finefits,
+            time_delays = time_delays,
+            centers1 = centers1,
+            profile1 = profile1,
+            centers2 = centers2,
+            profile2 = profile2
+        )
     end
 
     println("plots saved.")
@@ -267,12 +356,13 @@ jldopen("$(path)$(name).jld2", "r") do data
     # plots for best model
 
     # plots for first model
-
-    # plotting each individual image system predictions
-    n_sources = length(model.source_config.sources)
-    plot_sids = collect(1:n_sources)
-    for sid in plot_sids
-        LensModel.plot_best_model(model, optimizer; two_panel = true, source=sid, plot_name="$(path)$(name)_last_model_$(sid).png")
+    if plot_individual_src
+        # plotting each individual image system predictions
+        n_sources = length(model.source_config.sources)
+        plot_sids = collect(1:n_sources)
+        for sid in plot_sids
+            LensModel.plot_best_model(model, optimizer; two_panel = true, source=sid, plot_name="$(path)$(name)_last_model_$(sid).png")
+        end
     end
 end
 

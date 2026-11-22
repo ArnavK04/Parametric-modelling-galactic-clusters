@@ -14,6 +14,8 @@ name = "Hera_Parametric_20261110"
 N_constraints = 130     # 65 total images
 println("N_constrain = $N_constraints")
 clustername = "Hera"
+plot_individual_src = false
+
 if clustername == "SMACS0723"
     X_lim_plot = 50.0
     Y_lim_plot = 50.0
@@ -263,11 +265,13 @@ jldopen("$(path)$(name).jld2", "r") do data
     println("Done plotting modelling results.")
     flush(stdout)
 
-    # plotting each individual image system predictions
-    n_sources = length(model.source_config.sources)
-    plot_sids = collect(1:n_sources)
-    for sid in plot_sids
-        LensModel.plot_best_model(model, chains, logL, two_panel = true, source=sid, plot_name="$(path)$(name)_best_model_$(sid).png")
+    if plot_individual_src
+        # plotting each individual image system predictions
+        n_sources = length(model.source_config.sources)
+        plot_sids = collect(1:n_sources)
+        for sid in plot_sids
+            LensModel.plot_best_model(model, chains, logL, two_panel = true, source=sid, plot_name="$(path)$(name)_best_model_$(sid).png")
+        end
     end
 
     cosmo_best = LensModel.get_cosmology(data; burn_in=0.2, thin=1, with_errors=false)
