@@ -171,12 +171,12 @@ jldopen("$(path)$(name).jld2", "r") do data
     println("Calculating best fit rms...")
     flush(stdout)
     t0 = time()
-    LensModel.get_best_fit_rms(model, last_kappa, method = :adaptive)
+    #LensModel.get_best_fit_rms(model, last_kappa, method = :adaptive)
     println("Time taken to calculate best fit rms: $(time() - t0) seconds")
     println("----------------------------------------")
     flush(stdout)
 
-    last_lens, last_F = LensModel.get_best_model("$(path)$(name).jld2", run = :last)
+    #last_lens, last_F = LensModel.get_best_model("$(path)$(name).jld2", run = :last)
     println("Last target function is : $(last_F)")
 
     # Common quantities
@@ -308,12 +308,12 @@ jldopen("$(path)$(name).jld2", "r") do data
         save("$(path)$(name)_last_magreldev_map.png", mag_fig)
         maghist_fig = Figure(size=(500,400))
         maghist_ax = Axis(maghist_fig[1,1], xlabel = L"\delta \mu/\mu_{truth}", ylabel = "PDF")
-        hist!(maghist_ax, (last_mag9 .- mag_finefits)./mag_finefits, normalization = :pdf)
+        hist!(maghist_ax, vec((last_mag9 .- mag_finefits)./mag_finefits), normalization = :pdf)
         save("$(path)$(name)_last_magreldev_hist.png", maghist_fig)
 
         kappahist_fig = Figure(size=(500,400))
         kappahist_ax = Axis(kappahist_fig[1,1], xlabel = L"\delta \kappa/\kappa_{truth}", ylabel = "PDF")
-        hist!(kappahist_ax, (last_kappa9 .- kappa_finefits)./kappa_finefits, normalization = :pdf)
+        hist!(kappahist_ax, vec((last_kappa9 .- kappa_finefits)./kappa_finefits), normalization = :pdf)
         save("$(path)$(name)_last_kappareldev_hist.png", kappahist_fig)
 
         # plot radial profile
