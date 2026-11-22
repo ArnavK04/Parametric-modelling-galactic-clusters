@@ -16,7 +16,7 @@ cosmology:
 
 source:
   from_file: true
-  source_file: /home/arnav/Parametric/Parametric-modelling-galactic-clusters/Hera/Parametric/HERA_images.txt
+  source_file: /home/arnav/Parametric/Parametric-modelling-galactic-clusters/Hera/MaxEnt/HERA_images.txt
 
 
 lens_model:
