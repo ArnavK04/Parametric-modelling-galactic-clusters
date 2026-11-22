@@ -136,7 +136,8 @@ function get_time_delays_all(model, lens, adis, x_grid, y_grid, cosmo; match_tol
                 valid = filter(!isnan, delays)
                 isempty(valid) || (delays .-= minimum(valid))
             end
-
+            println("got time-delays for $(sid)")
+            flush(stdout)
             push!(all_delays, delays)
         end
     end
@@ -302,14 +303,9 @@ jldopen("$(path)$(name).jld2", "r") do data
         ylims!(mag_axes, -Y_lim_plot, Y_lim_plot)
         save("$(path)$(name)_last_magreldev_map.png", mag_fig)
 
-        maghist_fig = Figure(size=(500,400))
-        maghist_ax = Axis(maghist_fig[1,1], xlabel = L"\delta \mu/\mu_{truth}", ylabel = "PDF")
-        hist!(maghist_ax, vec((last_mag9 .- mag_finefits)./mag_finefits), normalization = :pdf)
-        save("$(path)$(name)_last_magreldev_hist.png", maghist_fig)
-
         kappahist_fig = Figure(size=(500,400))
         kappahist_ax = Axis(kappahist_fig[1,1], xlabel = L"\delta \kappa/\kappa_{truth}", ylabel = "PDF")
-        hist!(kappahist_ax, vec((last_kappa9 .- kappa_finefits)./kappa_finefits), normalization = :pdf)
+        hist!(kappahist_ax, vec((last_kappa9 .- kappa_finefits)./kappa_finefits), normalization = :pdf, bins = 50)
         save("$(path)$(name)_last_kappareldev_hist.png", kappahist_fig)
 
         # plot radial profile
@@ -322,11 +318,11 @@ jldopen("$(path)$(name).jld2", "r") do data
         end
 
         fig1 = Figure(size=(500,400))
-        ax1 = Axis(fig1[1,1], xlabel = "r (\")", ylabel = L"\kappa")
+        ax1 = Axis(fig1[1,1], xlabel = "r (\")", ylabel = L"\kappa", xscale = log10, yscale = log10)
         lines!(ax1, centers1, profile1)
         save("$(path)$(name)_last_radialprofile1.png", fig1)
         fig2 = Figure(size=(500,400))
-        ax2 = Axis(fig2[1,1], xlabel = "r (\")", ylabel = L"\kappa")
+        ax2 = Axis(fig2[1,1], xlabel = "r (\")", ylabel = L"\kappa", xscale = log10, yscale = log10)
         lines!(ax2, centers2, profile2)
         save("$(path)$(name)_last_radialprofile2.png", fig2)
 
