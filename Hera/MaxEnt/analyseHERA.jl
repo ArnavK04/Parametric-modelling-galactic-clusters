@@ -104,12 +104,14 @@ function get_time_delays_all(model, lens, adis, x_grid, y_grid, cosmo; match_tol
 
     all_delays = Vector{Vector{Float64}}()      # one entry per knot, in observed-image order
 
+    ax_grid, ay_grid = Lenses.get_deflection(lens, x_grid, y_grid)
+
     for (sid, src) in enumerate(model.source_config.sources)
         adis_value = adis[sid]
 
         for knot in src.knots
             β_knot = LensModel._get_source_position(lens, knot, adis_value)
-            images = Lenses.get_image(lens, x_grid, y_grid, adis_value, β_knot)
+            images = Lenses.get_image(lens, x_grid, y_grid, ax_grid, ay_grid, adis_value, β_knot)
 
             delays = fill(NaN, length(knot.x))
 
